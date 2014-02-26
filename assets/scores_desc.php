@@ -17,14 +17,16 @@ throw new Exception('Database not connected.');
 try{
 	if(isset($_GET['b'])){
 		$branch=intval($_GET['b']);
-		$res=mysql_fetch_row(run_query("SELECT `name` FROM `score_main` WHERE `branchid`='$branch';",$c));
+        $stmt=$c['db']->query("SELECT name FROM score_main WHERE branchid=:branchid", array(':branchid' => $branch));
+        $res=$stmt->fetch();
 		if(!$res)
 			throw new Exception('Selected branch is not participationg in NITTFEST 13!');
 		else	$bname=$res[0];
 	} else $branch='';
 	if(isset($_GET['e'])){
 		$event=filter_var($_GET['e'],FILTER_SANITIZE_STRING);
-		$res=mysql_fetch_row(run_query("SELECT `pageid`,`title`,`language` FROM `pages` WHERE `name`='$event';",$c));
+        $stmt=$c['db']->query("SELECT pageid,title,language FROM pages WHERE name=:name", array(':name' => $event));
+        $res=$stmt->fetch();
 		if(!$res)
 			throw new Exception('Selected Event is not recognized!');
 		else	{ $event=$res[0]; $ename=$res[1]; $cls=$res[2]; }
@@ -36,7 +38,8 @@ try{
 		$con="`parentid`='$event'";
 	if($branch)
 		$con.=($con?' AND ':'')."`score_details`.`branchid`='$branch'";
-	$res=run_query("SELECT `score_details`.*,`title`,`score_main`.`name` 'bname',`language` FROM `score_details`,`pages`,`score_main` WHERE {$con} AND `pages`.`pageid`=`score_details`.`pageid` AND `score_details`.`branchid`=`score_main`.`branchid` ORDER BY `rank` ASC,`time` DESC;",$c);
+
+	$res=$c['db']->query_simple("SELECT score_details.*,title,score_main.name 'bname',language FROM score_details,pages,score_main WHERE {$con} AND pages.pageid=score_details.pageid AND score_details.branchid=score_main.branchid ORDER BY rank ASC,time DESC");
 	if($event)
 	if($_GET['e']=='hindi')
 		$ename="Hindi Lits";

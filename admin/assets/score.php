@@ -1,59 +1,79 @@
 <?php
-define('NAMESPACE111222333','##$$');
-$PATH='../';
+define('NAMESPACE111222333', '##$$');
+$PATH = '../';
 require_once('security.php');
-if(isset($_POST['scoreSubmit']))
-try{
-	$event=intval($_POST['event']);
-	$subevent=intval($_POST['subevent']);
-	$res=mysql_fetch_row(run_query("SELECT `name` FROM `pages` WHERE `pageid`='$subevent' AND `parentid`='$event' AND `type`='1';",$c));
-	if(!$res)
-		throw new Exception('Select event and subevent properly');
-	$name=$res[0];
-	for($i=0,$l=count($_POST['position']);$i<$l && intval($_POST['position'][$i])>0 && floatval($_POST['points'][$i])>0;++$i);
-	if($i!=$l)
-		throw new Exception('Please enter valid scores and positions.');
-	for($i=0,$l=count($_POST['position'])-1;$i<$l;++$i)
-		if($_POST['position'][$i]>$_POST['position'][$i+1]+1)
-			throw new Exception('Please enter positions in correct order.');
-		else if($_POST['points'][$i]<$_POST['points'][$i+1])
-			throw new Exception('Please enter positions in correct order.');
-	if($i!=$l)
-		throw new Exception('Please enter valid scores');
-	$res=mysql_fetch_row(run_query("SELECT `name` FROM `pages` WHERE `pageid`='$event';",$c));
-	$catname=$res[0];
-	for($i=0,$l=count($_POST['position']);$i<$l;++$i){
-		$branch=intval($_POST['branch'][$i]);
-		$pos=intval($_POST['position'][$i]);
-		$pts=floatval($_POST['points'][$i]);
-		$desc=addslashes($_POST['desc'][$i]);
-		$time=time();
-		if(!$branch)
-			throw new Exception('Please select branch names.');
-		$res=mysql_fetch_row(run_query("SELECT `initial` FROM `score_main` WHERE `branchid`='$branch';",$c));
-		if(!$res) throw new Exception('Please select branch names.');
-		run_query("DELETE FROM `score_details` WHERE `branchid`='$branch' AND `pageid`='$subevent';",$c);
-		run_query("INSERT INTO `score_details` VALUES (NULL,'$branch','$event','$subevent','$pos','$pts','$desc','$time');",$c);
-		run_query("INSERT INTO `score_log` VALUES (NULL,'$branch','$event','$subevent','$pos','$pts','$time');",$c);
-		run_query("UPDATE `score_main` SET `$catname`= ( SELECT SUM(score) FROM `score_details` WHERE `branchid`='$branch' AND `category`='$event') WHERE `branchid`='$branch';",$c);
-	}
-	$T_INFO="Event '$name' scores added!";
-}catch(Exception $e){
-	$T_ERROR=$e->getMessage();
+if (isset($_POST['scoreSubmit']))
+    try {
+        $event = intval($_POST['event']);
+        $subevent = intval($_POST['subevent']);
+        $stmt=$c['db']->query(
+            "SELECT name FROM pages WHERE pageid=:pageid AND parentid=:parentid",
+            array(':pageid'=>$subevent , ':parentid' => $event)
+        );
+        $result=$stmt->fetch();
+        if (!$result)
+            throw new Exception('Select event and subevent properly');
+
+        $name = $result[0];
+        for ($i = 0, $l = count($_POST['position']); $i < $l && intval($_POST['position'][$i]) > 0 && floatval($_POST['points'][$i]) > 0; ++$i) ;
+
+        if ($i != $l)
+            throw new Exception('Please enter valid scores and positions.');
+
+        for ($i = 0, $l = count($_POST['position']) - 1; $i < $l; ++$i)
+            if ($_POST['position'][$i] > $_POST['position'][$i + 1] + 1)
+                throw new Exception('Please enter positions in correct order.');
+            else if ($_POST['points'][$i] < $_POST['points'][$i + 1])
+                throw new Exception('Please enter positions in correct order.');
+        if ($i != $l)
+            throw new Exception('Please enter valid scores');
+
+        $stmt=$c['db']->query("SELECT name FROM pages WHERE pageid=:pageid",
+        array(':pageid' => $event));
+        $result=$stmt->fetch();
+        $catname = $result[0];
+        for ($i = 0, $l = count($_POST['position']); $i < $l; ++$i) {
+            $branch = intval($_POST['branch'][$i]);
+            $pos = intval($_POST['position'][$i]);
+            $pts = floatval($_POST['points'][$i]);
+            $desc = addslashes($_POST['desc'][$i]);
+            $time = time();
+            if (!$branch)
+                throw new Exception('Please select branch names.');
+            $stmt=$c['db']->query("SELECT initial FROM score_main WHERE branchid=:branchid",array(':branchid' => $branch));
+            $stmt->fetch();
+            if (!$result)
+            {
+                throw new Exception('Please select branch names.');
+            }
+
+            $c['db']->query(
+                "DELETE FROM score_details WHERE branchid=:branchid AND pageid=:pageid",
+                array(':branchid' => $branch,':pageid' => $subevent));
+            /*why doing this?? ^^^^  */
+            $c['db']->query_simple("INSERT INTO score_details VALUES (NULL,'$branch','$event','$subevent','$pos','$pts','$desc','$time')");
+            $c['db']->query_simple("INSERT INTO score_log VALUES (NULL,'$branch','$event','$subevent','$pos','$pts','$time')");
+
+            $c['db']->query_simple("UPDATE score_main SET $catname= ( SELECT SUM(score) FROM score_details WHERE branchid='$branch' AND category='$event') WHERE branchid='$branch'");
+
+        }
+        $T_INFO = "Event '$name' scores added!";
+    } catch (Exception $e) {
+        $T_ERROR = $e->getMessage();
+    }
+$T_TITLE = 'NITTFEST Score';
+$T_HEADER = 'Scoreboard';
+$T_HEADSCRIPTS = '<script type="text/javascript" src="datatable/jquery.min.js" ></script>';
+$stmt = $c['db']->query("SELECT pageid,name,title FROM pages WHERE parentid=:parentid",array(':parentid'=>'1'));
+$eventselect = '';
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $eventselect .= "<OPTION value='{$row['pageid']}'>{$row['name']} - {$row['title']}</OPTION>";
 }
-$T_TITLE='NITTFEST Score';
-$T_HEADER='Scoreboard';
-$T_HEADSCRIPTS='<script type="text/javascript" src="datatable/jquery.min.js" ></script>';
-$res=run_query("SELECT `pageid`,`name`,`title` FROM `pages` WHERE `parentid`='1';",$c);
-$eventselect='';
-while($row=mysql_fetch_assoc($res)){
-	$eventselect.="<OPTION value='{$row['pageid']}'>{$row['name']} - {$row['title']}</OPTION>";
-}
-$res=run_query("SELECT `branchid`,`initial` FROM `score_main`;",$c);
-$brsel="<OPTION></OPTION>";
-while($row=mysql_fetch_assoc($res))
-	$brsel.="<OPTION value='{$row['branchid']}'>{$row['initial']}</OPTION>";
-$T_CONTENT=<<<BODY
+$stmt = $c['db']->query_simple("SELECT branchid,initial FROM score_main");
+$brsel = "<OPTION></OPTION>";
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+    $brsel .= "<OPTION value='{$row['branchid']}'>{$row['initial']}</OPTION>";
+$T_CONTENT = <<<BODY
 <script type="text/javascript">
 $(document).ready(function(){
 if(window.XMLHttpRequest)
@@ -92,5 +112,5 @@ for(var i=3;i>0;--i)
 </fieldset>
 <p><a href="scorelog.php" target="blank">Score Log</a></p>
 BODY;
-require_once($PATH."template/index.php");
+require_once($PATH . "template/index.php");
 ?>

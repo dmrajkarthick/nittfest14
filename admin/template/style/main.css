@@ -1,9 +1,19 @@
 
+@font-face {
+    font-family: hindi;
+    src: url(SHREE-DV0726-OT.TTF);
+}
 @font-face{
 	font-family: tamil;
 	src: url(ADAANA.TTF);
 }
+
+
+
 .Hindi{
+    font-family: 'hindi';
+    font-size:20px;
+    line-height: 14px;
 }
 .Tamil{
 	font-family: tamil;

@@ -1,54 +1,213 @@
-<html> <head> <title><?php echo $TITLE; ?></title> <link rel="shortcut 
-icon" type="image/x-icon" href="favicon.ico"></link> <style 
-type="text/css"> body{width: 100%; max-width: 600px; min-width: 230px; 
-margin: 0px auto; background-color: #6c3700; color: 
-#ff8300;font-size:1em;border:1px solid #000;font-family: serif;}
-li{color: #ff8300} a:link,a:visited{color:#fea;}
-.English{font-family: serif;}
-#header{display: block;width: 100%;margin: 3% 0%;}#header a{width: 100%; display: block;} #logo-top{width: 30%; 
-margin-left: 35%;}
-.mainlist,.sublist{list-style-type:none;text-align: center;width: 
-100%;margin: 5% 0px;padding: 0px;} .mainli{} .mainli a:link,.mainli 
-a:visited,.subli a:link,.subli a:visited{display:block;padding: 3% 
-0%;border: 1px solid #552d05;} .mainli a:link,.mainli 
-a:visited{background-color: #824508;} .sublist{margin: 0px; width: 
-80%;margin: 0px auto;} .subli	a:link,.subli 
-a:visited{background-color: #924f09;}
-#content{padding: 2%;overflow:auto;}
-.hometop{padding: 3%; display: block; background-color: #924f09;} 
-.eventlist li,.eventlist li a{padding: 2% 0%;} .eventlist li{margin: 
-5px;} .eventname{font-size: 2em;text-align: center; width: 100%;} 
-.tabHead{display:block; margin: 2% 0%;padding: 3% 2%; text-align: 
-center;} .selected{background-color: #824508;} .contactstable{font-size: 
-0.7em;} .contactstable img{margin: 3% 0%;} .event-points{padding: 
-2%;background-color: #924f09;}
-#footer{text-align: center;font-size: 0.6em;color: #999;width: 100%;} 
-#footer a:link,#footer a:visited{color: #999;}
-</style> <script type="text/javascript"> </script> </head> <body> <div 
-id="body-wrapper"> <div id="header"> <a href="./"><img id="logo-top" 
-src="images/logo-thumb.png" alt=""></a> </div> <div id="content-wrap"> 
+<html> <head> <title><?php echo "NITTFEST'14"; ?></title> <link rel="shortcut
+icon" type="image/x-icon" href="favicon.ico"></link> <style type="text/css">
+        body
+        {
+            width: 100%;
+            max-width: 600px;
+            min-width: 230px;
+            margin: 0px auto;
+            background-color: #c4c4c4;
+            /*background-color: #6c3700;*/
+            color: #222222;
+            /*color: #ff8300;*/
+            font-size:1.0em;
+            border:5px solid #000;
+            font-family: serif;
+        }
+
+        li
+        {
+            color: #222222;
+        }
+
+        a:link,a:visited
+        {
+            color: #e5e5e5;
+            /*color:#fea;*/
+        }
+
+        .English
+        {
+            font-family: serif;
+        }
+
+        #header
+        {
+            display: block;
+            width: 100%;
+            margin: 3% 0%;
+        }
+
+        #header a
+        {
+            width: 100%;
+            display: block;
+        }
+
+        #logo-top
+        {
+            width: 40%;
+            margin-left: 30%;
+        }
+
+        .mainlist,.sublist
+        {
+            list-style-type:none;
+            text-align: center;
+            width:100%;
+            margin: 5% 0px;
+            padding: 0px;
+        }
+
+        .mainli{} .mainli a:link,.mainli
+a:visited,.subli a:link,.subli a:visited
+                  {
+                      display:block;
+                      padding: 3% 0%;
+                      border: 1px solid #c4c4c4/*552d05*/;
+                      border-radius: 10px;
+                      text-decoration: none;
+                  }
+
+        .mainli a:link,.mainli a:visited
+        {
+            background-color: #222222;
+            text-decoration: none;
+            /*background-color: #824508;*/
+        }
+        .sublist
+        {
+            margin: 0px;
+            width:80%;
+            margin: 0px auto;
+        }
+        .subli	a:link,.subli a:visited
+        {
+            background-color: #222222;
+            text-decoration: none;
+            /*background-color: #924f09;*/
+        }
+
+        #content
+        {
+            padding: 2%;
+            overflow:auto;
+        }
+
+
+        .hometop
+        {
+            padding: 3%;
+            display: block;
+            background-color: #222222;
+            text-decoration: none;
+            border-radius: 5px;
+            /*background-color: #924f09;*/
+        }
+
+        .eventlist li,.eventlist li a
+        {
+            text-decoration: none;
+            color: #111111;
+            padding: 2% 0%;
+        }
+
+
+        .eventlist li
+        {margin: 5px;}
+
+        .eventname
+        {
+            font-size: 2em;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tabHead
+        {
+            background-color: #222222;
+            color: #c4c4c4;
+            display:block;
+            margin: 2% 0%;
+            padding: 3% 2%;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .selected
+        {
+            /*background-color: #824508;*/
+            background-color: #222222;
+        }
+
+        .contactstable
+        {
+            font-size: 0.7em;
+        }
+
+        .contactstable img
+        {
+            margin: 3% 0%;
+        }
+
+        .breadcrumbs a
+        {
+            color: #222222;
+        }
+        .event-points
+        {
+            padding: 2%;
+            background-color: #222222;
+            color: #c4c4c4;
+            border-radius: 5px;
+        }
+
+        #footer
+        {
+            text-align: center;
+            font-size: 0.7em;
+            color: #111111;
+            width: 100%;
+        }
+
+        #footer a:link,#footer a:visited
+        {
+            color: #111111;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+<div id="body-wrapper">
+    <div id="header"> <a href="./"><img id="logo-top" src="images/logo.png" alt=""></a> </div> <div id="content-wrap">
 <?php if(!isset($CONTENT)){ ?> <ul class="mainlist">
-<li class="mainli"><a href="index.php?q=e_scoreboard">Scoreboard</a></li>
+<li class="mainli"><a href="index.php?q=e_scoreboard">SCOREBOARD</a></li>
 <li 
-class="mainli"><a href="index.php?q=e_notification">Updates</a></li>
+class="mainli"><a href="index.php?q=e_notification">UPDATES</a></li>
 <li>
 <ul class="sublist"> <li class="mainli">
-<a href="index.php?q=e_rule">Rulebook</a><ul class="sublist">
-<li class="subli"><a href="index.php?q=e_culturals">Culturals</a></li>
-<li class="subli"><a href="index.php?q=e_tamil">Tamil Lits</a></li>
-<li class="subli"><a href="index.php?q=e_hindi">Hindi Lits</a></li>
-<li class="subli"><a href="index.php?q=e_english">English Lits</a></li>
-<li class="subli"><a href="index.php?q=e_arts">Arts</a></li>
-<li class="subli"><a href="index.php?q=e_design">Design &amp; Media</a></li>
+<a href="index.php?q=e_rule">RULEBOOK</a><ul class="sublist">
+<li class="subli"><a href="index.php?q=e_culturals">CULTURALS</a></li>
+<li class="subli"><a href="index.php?q=e_tamil">TAMIL LITS</a></li>
+<li class="subli"><a href="index.php?q=e_hindi">HINDI LITS</a></li>
+<li class="subli"><a href="index.php?q=e_english">ENGLISH LITS</a></li>
+<li class="subli"><a href="index.php?q=e_arts">ARTS</a></li>
+<li class="subli"><a href="index.php?q=e_design">DESIGN &amp; MEDIA</a></li>
 </ul></li>
-    <li class="mainli"><a href="index.php?q=e_about-us">About Us</a></li>
+    <li class="mainli"><a href="index.php?q=e_about-us">ABOUT US</a></li>
 <li class="mainli"><a
-href="index.php?q=e_contacts">Contacts</a></li> <li class="mainli"><a 
-href="index.php?q=e_partners">Partners</a></li> </ul> <?php }else { 
+href="index.php?q=e_contacts">CONTACTS</a></li> <li class="mainli"><a
+href="index.php?q=e_partners">PARTNERS</a></li> </ul> <?php }else {
 if($LANGUAGE=="Tamil"){
 	echo " <style> @font-face{ font-family: tamil; src: 
-url(files/ADAANA.TTF); } #content{	font-family: tamil !important; 
+url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
 }</style>
+
+
 $CONTENT";
 }else
 echo $CONTENT;

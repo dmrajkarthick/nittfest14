@@ -9,10 +9,10 @@ $T_HEADSCRIPTS='<script type="text/javascript" src="datatable/jquery.min.js" ></
 <script type="text/javascript" src="datatable/jquery.dataTables.min.js" ></script>
 ';
 try{
-$result=run_query("SELECT `score_log`.*,`pages`.`name`,`initial` FROM `score_log`,`pages`,`score_main` WHERE `pageid`=`subevent` AND `branch`=`branchid` ORDER BY `time` DESC;",$c);
-$i=mysql_num_rows($result);
+$result=$c['db']->query_simple("SELECT `score_log`.*,`pages`.`name`,`initial` FROM `score_log`,`pages`,`score_main` WHERE `pageid`=`subevent` AND `branch`=`branchid` ORDER BY `time` DESC");
+$i=$result->fetchColumn();
 $con='';
-while($row=mysql_fetch_assoc($result)){
+while($row=$result->fetch(PDO::FETCH_ASSOC)){
 	$time=date('F j, Y, g:i a',$row['time']);
 	$con.="<tr><td>$i</td><td>{$row['name']}</td><td>{$row['initial']}</td><td>{$row['position']}</td><td>{$row['points']}</td><td>{$time}</td></tr>";
 	--$i;
@@ -28,4 +28,4 @@ $T_CONTENT.=<<<BODY
 <script type="text/javascript">$(document).ready(function() { $("#rankTable").dataTable(); });</script>
 BODY;
 require_once($PATH."template/index.php");
-?>
+

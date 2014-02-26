@@ -6,7 +6,9 @@ function pagepath($sponsorid){
 	global $c;
 	$a=array();
 	while(1){
-		$res=mysql_fetch_row(run_query("SELECT `parentid`,`name` FROM `updates` WHERE `sponsorid`='$sponsorid';",$c));
+        $stmt=$c['db']->query("SELECT parentid,name FROM updates WHERE sponsorid=:sponsorid",array(':sponsorid' => $sponsorid));
+		$res=$stmt->fetch();
+            //mysql_fetch_row(run_query("SELECT `parentid`,`name` FROM `updates` WHERE `sponsorid`='$sponsorid';",$c));
 		$a[]=array($sponsorid,$res[1]);
 		$sponsorid=$res[0];
 		if(!$sponsorid) break;
@@ -24,7 +26,9 @@ try{
 	$name=addslashes($_POST['name']);
 	$type='';
 	$url=$_POST['url']?addslashes(filter_var($_POST['url'],FILTER_SANITIZE_URL)):'';
-	$res=mysql_fetch_row(run_query("SELECT MAX(`rank`)+1 from `updates` where `parentid`='$sponsor';",$c));
+    $stmt=$c['db']->query("SELECT MAX(rank)+1 from updates where parentid='$sponsor'",array(':parentid' => $sponsor));
+	$res=$stmt->fetch();
+        //mysql_fetch_row(run_query("SELECT MAX(`rank`)+1 from `updates` where `parentid`='$sponsor';",$c));
 	$rank=$res[0];
 	if($_FILES['picture']['name']){
 		if($_FILES['picture']['error']>0)
@@ -38,7 +42,7 @@ try{
 	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$tempfile))
 		throw new Exception('Upload save error!');
 	}else $path='';
-	$q=run_query("INSERT INTO `updates` VALUES (NULL,'$sponsor','$type','$name','$url','$path','$rank');",$c);
+	$q=$c['db']->query_simple("INSERT INTO updates VALUES (NULL,'$sponsor','$type','$name','$url','$path','$rank')");
 	if($q) $T_INFO='Update Added!';
 	else throw new Exception('Not added. '.mysql_error());
 }catch(Exception $e){
@@ -47,7 +51,9 @@ try{
 else if(isset($_POST['updateSubmit']))
 try{
 	$editsponsor=intval($_GET['edit']);
-	$res=mysql_fetch_row(run_query("SELECT `image` FROM `updates` WHERE `sponsorid`='$editsponsor'",$c));
+    $stmt=$c['db']->query("SELECT image FROM updates WHERE sponsorid=:sponsorid",array(':sponsorid' => $editsponsor));
+	$res=$stmt->fetch();
+        //mysql_fetch_row(run_query("SELECT `image` FROM `updates` WHERE `sponsorid`='$editsponsor'",$c));
 	if(!$res) throw new Exception('Invalid request');
 	$oldpath=$res[0];
 	$name=addslashes($_POST['name']);
@@ -66,7 +72,7 @@ try{
 	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$tempfile))
 		throw new Exception('Upload save error!');
 	}else $path=$oldpath;
-	run_query("UPDATE `updates` SET `name`='$name',`type`='$type',`url`='$url',`image`='$path' WHERE `sponsorid`='$editsponsor';",$c);
+	$c['db']->query_simple("UPDATE updates SET name='$name',type='$type',url='$url',image='$path' WHERE sponsorid='$editsponsor'");
 	$T_INFO='Event details updated!';
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
@@ -74,17 +80,20 @@ try{
 else if(isset($_GET['up']))
 try{
 	$sponsorid=intval($_GET['up']);
-	$res=mysql_fetch_row(run_query("SELECT `parentid`,`rank`,`name` FROM `updates` WHERE `sponsorid`='$sponsorid';",$c));
+    $stmt=$c['db']->query("SELECT parentid,rank,name FROM updates WHERE sponsorid=:sponsorid",array(':sponsorid' => $sponsorid));
+	$res=$stmt->fetch();
+        //mysql_fetch_row(run_query("SELECT `parentid`,`rank`,`name` FROM `updates` WHERE `sponsorid`='$sponsorid';",$c));
 	if(!$res)
 		throw new Exception('Sponsor to move up not found');
 	$rank=$res[1];
 	$parent=$res[0];
 	$name=$res[2];
-	$res=mysql_fetch_row(run_query("SELECT `sponsorid`,`rank` FROM `updates` WHERE `rank`<'$rank' AND `parentid`='$parent' ORDER BY `rank` DESC LIMIT 0,1",$c));
+    $stmt=$c['db']->query("SELECT sponsorid,rank FROM updates WHERE rank<'$rank' AND parentid=:parentid ORDER BY rank DESC LIMIT 0,1",array(':parentid' => $parent));
+	$res=$stmt->fetch();
 	if(!$res)
 		throw new Exception("Update '$name' is already on top of list.");
-	run_query("UPDATE `updates` SET `rank`='$rank' WHERE `sponsorid`='{$res[0]}';",$c);
-	run_query("UPDATE `updates` SET `rank`='{$res[1]}' WHERE `sponsorid`='$sponsorid';",$c);
+    $c['db']->query_simple("UPDATE updates SET rank='$rank' WHERE sponsorid='{$res[0]}'");
+    $c['db']->query_simple("UPDATE updates SET rank='{$res[1]}' WHERE sponsorid='$sponsorid'");
 	$T_INFO="Event '$name' moved up.";
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
@@ -92,17 +101,19 @@ try{
 else if(isset($_GET['down']))
 try{
 	$sponsorid=intval($_GET['down']);
-	$res=mysql_fetch_row(run_query("SELECT `parentid`,`rank`,`name` FROM `updates` WHERE `sponsorid`='$sponsorid';",$c));
+    $stmt=$c['db']->query("SELECT parentid,rank,name FROM updates WHERE sponsorid=:sponsorid",array(':sponsorid' => $sponsorid));
+    $res=$stmt->fetch();
 	if(!$res)
 		throw new Exception('Update to move down not found');
 	$rank=$res[1];
 	$parent=$res[0];
 	$name=$res[2];
-	$res=mysql_fetch_row(run_query("SELECT `sponsorid`,`rank` FROM `updates` WHERE `rank`>'$rank' AND `parentid`='$parent' ORDER BY `rank` ASC LIMIT 0,1",$c));
+    $stmt=$c['db']->query("SELECT sponsorid,rank FROM updates WHERE rank>:rank AND parentid=:parentid ORDER BY rank ASC LIMIT 0,1",array(':rank' => $rank, ':parentid' => $parent));
+    $res=$stmt->fetch();
 	if(!$res)
 		throw new Exception("Event '$name' is already on bottom of list.");
-	run_query("UPDATE `updates` SET `rank`='$rank' WHERE `sponsorid`='{$res[0]}';",$c);
-	run_query("UPDATE `updates` SET `rank`='{$res[1]}' WHERE `sponsorid`='$sponsorid';",$c);
+    $c['db']->query_simple("UPDATE updates SET rank='$rank' WHERE sponsorid='{$res[0]}'");
+    $c['db']->query_simple("UPDATE updates SET rank='{$res[1]}' WHERE sponsorid='$sponsorid'");
 	$T_INFO="Event '$name' moved down.";
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
@@ -110,7 +121,8 @@ try{
 else if(isset($_GET['delete']))
 try{
 	$sponsor=intval($_GET['delete']);
-	$res=mysql_fetch_row(run_query("SELECT `name` FROM `updates` WHERE `sponsorid`='$sponsor';",$c));
+    $stmt=$c['db']->query("SELECT name FROM updates WHERE sponsorid='$sponsor'",array(':sponsorid' => $sponsor));
+    $res=$stmt->fetch();
 	if(!$res)
 		throw new Exception('Invalid update.');
 	$name=$res[0];
@@ -120,16 +132,16 @@ try{
 	while($list){
 		$listn=array();
 		foreach($list as $l){
-		$q=run_query("SELECT `sponsorid` FROM `updates` WHERE `parentid`='$l';",$c);
-		while($res=mysql_fetch_row($q))
+		$q=$c['db']->query_simple("SELECT sponsorid FROM updates WHERE parentid='$l'");
+		while($res=$q->fetchColumn())
 			$listn[]=$res[0];
 		}
 		$list="'".implode("','",$list)."'";
-		$res=run_query("SELECT `sponsorid`,`image` FROM `updates` WHERE `sponsorid` IN ($list);",$c);
-		while($row=mysql_fetch_row($res))
+		$res=$c['db']->query_simple("SELECT sponsorid,image FROM updates WHERE sponsorid IN ($list)");
+		while($row=$res->fetchColumn())
 			if($row[1])
 				@unlink($PATH."../updates/".$row[1]);
-		run_query("DELETE FROM `updates` WHERE `sponsorid` IN ($list);",$c);
+        $c['db']->query_simple("DELETE FROM updates WHERE sponsorid IN ($list)");
 		$list=$listn;
 	}
 	$list=array();
@@ -150,7 +162,8 @@ $show=1;
 if(isset($_GET['edit']))
 try{
 	$editsponsor=intval($_GET['edit']);
-	$res=mysql_fetch_assoc(run_query("SELECT * FROM `updates` WHERE `sponsorid`='$editsponsor';",$c));
+    $stmt=$c['db']->query("SELECT * FROM updates WHERE sponsorid='$editsponsor'",array(':sponsorid' => $editsponsor));
+	$res=$stmt->fetch(PDO::FETCH_ASSOC);
 	if(!$res) throw new Exception();
 	$image=$res['image']?"<img class='thumbnail' src='{$PATH}../updates/{$res['image']}' alt='' >":'';
 	$T_CONTENT.=<<<BODY
@@ -171,13 +184,14 @@ BODY;
 	$show=1;
 }
 if($show){
-$res=mysql_fetch_row(run_query("SELECT MAX(`rank`),MIN(`rank`) FROM `updates` WHERE `parentid`='$sponsor';",$c));
+    $stmt=$c['db']->query("SELECT MAX(rank),MIN(rank) FROM updates WHERE parentid='$sponsor'",array(':parentid' => $sponsor));
+$res=$stmt->fetch();
 $minp='';$maxp='';
 if(!($res[0]==='')){ $minp=$res[0]; $maxp=$res[1]; }//rank opp
-$q=run_query("SELECT * FROM `updates` WHERE `parentid`='$sponsor' ORDER BY `rank`;",$c);
-if(mysql_num_rows($q)){
+$q=$c['db']->query_simple("SELECT * FROM updates WHERE parentid='$sponsor' ORDER BY rank");
+if($q->fetchColumn()){
 	$con="<ol>";
-	while($res=mysql_fetch_assoc($q)){
+	while($res=$q->fetch(PDO::FETCH_ASSOC)){
 		$image=$res['image']?"<a href='{$res['url']}' target='blank'><img class='thumbnail' src='{$PATH}../updates/{$res['image']}' alt='' ></a>":'';
 		$up=$res['rank']==$maxp?"<img class='disabled' src='{$PATH}/template/images/up.png' alt='Up' >":"<a class='action' href='./updates.php?up={$res['sponsorid']}' title='Move Up'><img src='{$PATH}/template/images/up.png' alt='Up' ></a>";
 		$down=$res['rank']==$minp?"<img class='disabled' src='{$PATH}/template/images/down.png' alt='Down' >":"<a class='action' href='./updates.php?down={$res['sponsorid']}' title='Move Down'><img src='{$PATH}/template/images/down.png' alt='Down' ></a>";
@@ -207,4 +221,3 @@ $con
 BODY;
 }
 require_once($PATH."/template/index.php");
-?>

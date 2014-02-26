@@ -17,7 +17,7 @@ try{
 	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$tempfile))
 		throw new Exception('Upload save error!');
 	}else throw new Exception('Please select a file');
-	$q=run_query("INSERT INTO `uploads` VALUES (NULL,'$path','$type','{$_FILES['picture']['type']}',NULL);",$c);
+	$q=$c['db']->query_simple("INSERT INTO uploads VALUES (NULL,'$path','$type','{$_FILES['picture']['type']}',NULL)");
 	if($q) $T_INFO='Upload successful!';
 	else throw new Exception('Not added. '.mysql_error());
 }catch(Exception $e){
@@ -26,12 +26,14 @@ try{
 else if(isset($_GET['delete']))
 try{
 	$uploader=intval($_GET['delete']);
-	$res=mysql_fetch_row(run_query("SELECT `name` FROM `uploads` WHERE `uploadid`='$uploader';",$c));
+    $stmt=$c['db']->query("SELECT name FROM uploads WHERE uploadid=:uploadid",array(':uploadid' => $uploader));
+	$res=$stmt->fetch();
+        //mysql_fetch_row(run_query("SELECT `name` FROM `uploads` WHERE `uploadid`='$uploader';",$c));
 	if(!$res)
 		throw new Exception('Invalid upload specified.');
 	$name=$res[0];
 	@unlink("./../../uploads/".$name);
-	run_query("DELETE FROM `uploads` WHERE `uploadid`='$uploader';",$c);
+	$c['db']->query_simple("DELETE FROM uploads WHERE uploadid='$uploader'");
 	$T_INFO="'$name' deleted.";
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
@@ -39,10 +41,10 @@ try{
 $T_TITLE='NITTFEST Uploads Management';
 $T_HEADER='Uploads';
 $T_CONTENT='';
-$q=run_query("SELECT * FROM `uploads` ORDER BY `time` DESC;",$c);
-if(mysql_num_rows($q)){
+$q=$c['db']->query_simple("SELECT * FROM uploads ORDER BY time DESC");
+if($q->fetchColumn()){
 	$con="<ul>";
-	while($res=mysql_fetch_assoc($q)){
+	while($res=$q->fetch(PDO::FETCH_ASSOC)){
 		$image=$res['type']==2?"<img class='thumbnail' src='{$IMAGEPATH}/uploads/{$res['name']}' alt='' >":'';
 		$con.="<li><a class='action' href='./upload.php?delete={$res['uploadid']}' title='Delete'><img src='{$PATH}template/images/delete.png' onclick=\"return confirm('Are you sure you want to delete {$res['name']}?')\" alt='Delete' ></a>{$res['name']}&nbsp;&nbsp;{$image}</li>";
 	}
@@ -64,4 +66,4 @@ $con
 <br />
 BODY;
 require_once($PATH."/template/index.php");
-?>
+

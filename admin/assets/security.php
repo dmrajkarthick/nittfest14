@@ -1,18 +1,23 @@
+<!-- Recheck whether the login details are correct or not with session ids and cookies constant variables.
+     Then check for database connections as changes are gonna be made in database. -->
+
 <?php
-if(!defined('NAMESPACE111222333')){
+/*if(!defined('NAMESPACE111222333')){
 	header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 	echo '<h1>403 Forbidden<h1><h4>You are not authorized to access the page.</h4>';
 	echo '<hr/>'.$_SERVER['SERVER_SIGNATURE'];
 	exit(1);
-}
+}*/
+
 require_once($PATH.'config/variables.php');
 session_set_cookie_params(time()+$TIME);
 session_start();
+
 try{
 	if(!isset($_COOKIE['check']))
 		throw new Exception();
 	$a=explode('.',$_SERVER['SERVER_ADDR']);
-	$s=$a[0].$a[1].$_SERVER['HTTP_USER_AGENT'].session_id().$KEY1;
+	$s=$a[0].$_SERVER['HTTP_USER_AGENT'].session_id().$KEY1;
 	if($_COOKIE['check']!= md5($_SESSION['hasher'].$KEY2.$s))
 		throw new Exception();
 	if(!$_SESSION['userid'] || !isset($_COOKIE['checkdata']))
@@ -23,11 +28,10 @@ try{
 	setcookie('checkdata',$_COOKIE['checkdata'],time()+$TIME,'/');
 	setcookie('check',$_COOKIE['check'],time()+$TIME,'/');
 	require_once($PATH.'assets/mysqlconnector.php');
-	$c=connectMySQL($PATH);
+    /*$c=connectMySQL($PATH);
 	if(!$c)
-		throw new Exception('Database not connected.');
-}catch(Exception $e){
+		throw new Exception('Database not connected.');*/
+} catch(Exception $e) {
 	header('Location: '.$PATH.'index.php');
 	die();
 }
-?>
