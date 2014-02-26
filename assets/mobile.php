@@ -184,7 +184,8 @@ a:visited,.subli a:link,.subli a:visited
 <body>
 <div id="body-wrapper">
     <div id="header"> <a href="./"><img id="logo-top" src="images/logo.png" alt=""></a> </div> <div id="content-wrap">
-<?php if(!isset($CONTENT)){ ?> <ul class="mainlist">
+<?php
+        if(!isset($CONTENT)){ ?> <ul class="mainlist">
 <li class="mainli"><a href="index.php?q=e_scoreboard">SCOREBOARD</a></li>
 <li 
 class="mainli"><a href="index.php?q=e_notification">UPDATES</a></li>
@@ -201,16 +202,24 @@ class="mainli"><a href="index.php?q=e_notification">UPDATES</a></li>
     <li class="mainli"><a href="index.php?q=e_about-us">ABOUT US</a></li>
 <li class="mainli"><a
 href="index.php?q=e_contacts">CONTACTS</a></li> <li class="mainli"><a
-href="index.php?q=e_partners">PARTNERS</a></li> </ul> <?php }else {
-if($LANGUAGE=="Tamil"){
-	echo " <style> @font-face{ font-family: tamil; src: 
-url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
-}</style>
+href="index.php?q=e_partners">PARTNERS</a></li> </ul> <?php }
+    else {
+        if($LANGUAGE=="Tamil"){
+	    echo " <style> @font-face{ font-family: tamil; src:
+        url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
+        }</style>
+        $CONTENT";
+        }
 
-
-$CONTENT";
-}else
-echo $CONTENT;
+        else if($LANGUAGE=="Hindi")
+        {
+            echo "<style> @font-face{ font-family: hindi; src:
+            url(files/SHREE-DV0726-OT.TTF); } #content{	font-family: hindi;
+            }</style>
+            $CONTENT";
+        }
+        else
+        echo $CONTENT;
 } ?>
 </div> <div id="footer"> &copy; NITTFEST '13 Core<br /> <a 
 href="index.php?desktop">View Desktop Site</a><br />&nbsp; </div> </div> 
