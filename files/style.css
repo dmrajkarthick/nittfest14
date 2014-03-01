@@ -1,0 +1,255 @@
+@font-face
+{
+    font-family: thefont;
+    src: url('./font.ttf');
+
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
+::scrollbar {
+    width: 12px;
+}
+
+::scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+body{
+
+    background: url('../images/back.jpg') no-repeat;
+    background-size: 80%;
+}
+
+#dragonfire{
+
+    position:absolute;
+    border: none;
+
+}
+#dragonfire img{
+
+    height:600px;
+    width:800px;
+    border: none;
+}
+
+.links img{
+    width:30px;
+    height:50px;
+    opacity:1.0;
+}
+.nhard{
+    background: blue;
+}
+.hard{
+    background: brown;
+}
+
+.text{
+    position:absolute;
+}
+
+.showdiv{
+
+    background: url('../images/scroll.png');
+    background-position: 50% 50%;
+    background-size: 120% 140%;
+    background-repeat: no-repeat;
+    vertical-align: center;
+    z-index:4;
+    font-family: thefont;
+}
+.innerdiv{
+    position: absolute;
+    vertical-align: center;
+    overflow: auto;
+
+}
+
+#flipbook{
+    z-index:4;
+}
+#flipbook img{
+
+}
+.links{
+    position : absolute;
+}
+#rulebook_button{
+    top:36em ;
+    left:80em;
+}
+#scorecard_button{
+    top:26em;
+    left:50em;
+}
+
+#updates_button{
+    top:28em;
+    left:57em;
+}
+
+#partners_button{
+    top:33em;
+    left:73em;
+}
+#aboutus_button{
+    top:32em;
+    left:67em;
+}
+#contacts_button{
+    top:29em;
+    left:63em;
+}
+#hide{
+
+    position:absolute;
+
+}
+#hide::hover{
+
+    border: 5em solid blue;
+}
+#maindiv{
+    position:absolute;
+    top:0;
+
+    width:100%;
+    bottom: 0;
+    width:2000;
+    height:2000;
+    overflow: hidden;
+    vertical-align: center;
+    background:rgba(138,138,106,0.5) repeat ;
+    border: 0px solid black;
+    visibility: hidden;
+    opacity:1.0;
+
+
+}
+
+#hammer
+{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    visibility: hidden;
+}
+
+#hammer img
+{
+    height: 50;
+    width: 30;
+}
+
+#contacts
+{
+    position: absolute;
+    width: 90%;
+    height: 82%;
+    left: 5%;
+    top: 10%;
+
+
+}
+
+.inner-container img
+{
+    height: 100%;
+    width: 100%;
+}
+.inner-container
+{
+    position: absolute;
+    display: block;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+#book{
+    position: absolute;
+    top:125px;
+    left:175px;
+    width:800px;
+    height:500px;
+}
+
+#book .turn-page{
+    background-color:white;
+}
+
+#book .cover{
+    background:#333;
+}
+
+#book .cover h1{
+    color:white;
+    text-align:center;
+    font-size:50px;
+    line-height:500px;
+    margin:0px;
+}
+
+#book .loader{
+    background-image:url(loader.gif);
+    width:24px;
+    height:24px;
+    display:block;
+    position:absolute;
+    top:238px;
+    left:188px;
+}
+
+#book .data{
+    text-align:center;
+    font-size:40px;
+    color:#999;
+    line-height:500px;
+}
+
+#controls{
+    width:800px;
+    text-align:center;
+    margin:20px 0px;
+    font:30px arial;
+    display: none;
+}
+
+#controls input, #controls label{
+    font:30px arial;
+}
+
+#book .odd{
+    background-image:-webkit-linear-gradient(left, #FFF 95%, #ddd 100%);
+    background-image:-moz-linear-gradient(left, #FFF 95%, #ddd 100%);
+    background-image:-o-linear-gradient(left, #FFF 95%, #ddd 100%);
+    background-image:-ms-linear-gradient(left, #FFF 95%, #ddd 100%);
+}
+
+#book .even{
+    background-image:-webkit-linear-gradient(right, #FFF 95%, #ddd 100%);
+    background-image:-moz-linear-gradient(right, #FFF 95%, #ddd 100%);
+    background-image:-o-linear-gradient(right, #FFF 95%, #ddd 100%);
+    background-image:-ms-linear-gradient(right, #FFF 95%, #ddd 100%);
+}

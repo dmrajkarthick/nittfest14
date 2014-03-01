@@ -28,44 +28,23 @@ try
         require_once("assets/mobile.php");
         die();
     }
+    else
+    {
+        header("Location: files/main.php");
+    }
 
-    define('NAMESPACE111222333','##$$$$23@');
-    require_once('admin/config/variables.php');
-    $site=$IMAGEPATH;
-    $PATH="admin/";
-    require_once($PATH.'assets/mysqlconnector.php');
-    $c=connectMySQL($PATH);
-    if(!$c)
-        throw new Exception('Database not connected.');
+
 }
 catch(Exception $e)
 {
 }
-
-//changing the back ground as per day and night.////////////////////////////////////////////////////
-date_default_timezone_set('Asia/Calcutta');
-$ca=getdate();
-$ca=$ca['hours']+0;
-$backtype=($ca>18 || $ca<8)?'night':'day';
-
 ?>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-    <title>NITTFEST '13
-    </title>
-    <link href="files/style1.css" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-</head>
 <body class="stretch">
     <div id="loading-container" class="stretch"><div id="loader">
         <img src="images/loading.gif" class="l-image" alt=""><br /><br />
         <span id="l-progress">Loading...</span><br />
         <span id="l-error"></span><br />
     </div></div>
-<script src="files/jquery.min.js" type="text/javascript"></script>
-<script src="files/assets.custom.js" type="text/javascript"></script>
-<script type="text/javascript" src="files/script1.js"></script>
 <div id="top-container" class="stretch">
 <div id="container" class="stretch">
     <div id="container1" class="stretch containers">

@@ -13,8 +13,9 @@ try{
 	if(in_array($_FILES['picture']['type'],array('image/gif','image/jpeg','image/png')))
 		$type=2;
 	$path=str_replace(' ','_',$_FILES['picture']['name']);
-	$tempfile="./../../uploads/".$path;
-	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$tempfile))
+	$temp_file="./../../uploads/".$path;
+        //var_dump(move_uploaded_file($_FILES['picture']['tmp_name'],$temp_file));
+	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$temp_file))
 		throw new Exception('Upload save error!');
 	}else throw new Exception('Please select a file');
 	$q=$c['db']->query_simple("INSERT INTO uploads VALUES (NULL,'$path','$type','{$_FILES['picture']['type']}',NULL)");
@@ -42,9 +43,9 @@ $T_TITLE='NITTFEST Uploads Management';
 $T_HEADER='Uploads';
 $T_CONTENT='';
 $q=$c['db']->query_simple("SELECT * FROM uploads ORDER BY time DESC");
-if($q->fetchColumn()){
+if($q->rowCount()){
 	$con="<ul>";
-	while($res=$q->fetch(PDO::FETCH_ASSOC)){
+	while($res=$q->fetch()){
 		$image=$res['type']==2?"<img class='thumbnail' src='{$IMAGEPATH}/uploads/{$res['name']}' alt='' >":'';
 		$con.="<li><a class='action' href='./upload.php?delete={$res['uploadid']}' title='Delete'><img src='{$PATH}template/images/delete.png' onclick=\"return confirm('Are you sure you want to delete {$res['name']}?')\" alt='Delete' ></a>{$res['name']}&nbsp;&nbsp;{$image}</li>";
 	}
