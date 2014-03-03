@@ -3,12 +3,17 @@
 define('NAMESPACE111222333','##$$$$23@');
 require_once('admin/config/variables.php');
 $site=$IMAGEPATH;
-$PATH="admin/";
-require_once($PATH.'assets/mysqlconnector.php');
-$ctype=$_GET['ctype']; 
-$p=$_GET['p'];
-if(!$p) $p=0;
+$PATH = __DIR__."/admin/";
+require_once $PATH.'assets/mysqlconnector.php';
+$ctype = '';
+$p = 0;
+if(isset($_GET['ctype'])) {
+    $ctype=$_GET['ctype']; 
+}
 
+if(isset($_GET['p']) && is_numeric($_GET['p'])) {
+    $p=$_GET['p'];
+}
 ?>
 
 
@@ -25,14 +30,9 @@ if(!$p) $p=0;
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
     <title>NITTFEST '14
     </title>
-   
-
 </head>
 <body id='body'>
-
-
 <!-- <div id='background' ><img src='./images/back.jpg' e='aboutus'/></div> -->
-
 <!--<div id="score"><img src="./img/scorecard.png" /></div>-->
 <div id='dragonfire' >
     <img src='' />
@@ -45,14 +45,10 @@ if(!$p) $p=0;
                 <img src="images/rulebook.jpg">
             </div>
         </div>
-         <div id="controls">
-    <label for="page-number">Page:</label> <input type="text" size="3" id="page-number"> of <span id="number-pages"></span>
+        <div id="controls">
+            <label for="page-number">Page:</label> <input type="text" size="3" id="page-number"> of <span id="number-pages"></span>
+        </div>
     </div>
-
-    </div>
-   
-        
-    
     <div id='aboutus' class='showdiv' >
         <div class='innerdiv'>
             <?php 
@@ -64,17 +60,12 @@ if(!$p) $p=0;
     </div>
     <div id='updates' class='showdiv' >
         <div class='innerdiv'>
-
             Updates:
             Coming soon!!
         </div>
-
-
     </div>
     <div id='scorecard' class='showdiv' >
         <div class='innerdiv'>
-
-
             Coming soon!!
         </div>
     </div>
@@ -95,17 +86,12 @@ if(!$p) $p=0;
     <button id='hide' class='button'></button><br />
 </div>
 
-
-
-
-
 <div id='rulebook_button' class='links grow' name='book'><img src='./images/warrior1.png' /></div>
 <div id='updates_button' class='links grow' name='updates'><img src='./images/warrior2.png' /></div>
 <div id='scorecard_button' class='links grow' name='scorecard'><img src='./images/warrior3.png' /></div>
 <div id='aboutus_button' class='links grow' name='aboutus'><img src='./images/warrior4.png' /></div>
 <div id='contacts_button' class='links grow' name='contacts'><img src='./images/warrior5.png' /></div>
 <div id='partners_button' class='links grow' name='partners'><img src='./images/warrior6.png' /></div>
-
 
 <div id='rulebook_text' class="text" >Rulebook</div>
 <div id='updates_text' class="text" >Updates</div>
@@ -142,9 +128,9 @@ if(!$p) $p=0;
         var q = "<?php echo $ctype ?>";
         pn=parseInt(pn);
         if(q != 'flipbook'){
-            window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+q);
+            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+q);
         }else{
-            window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+q+"&p="+pn);
+            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+q+"&p="+pn);
         }
     }
     function p(o){
@@ -215,7 +201,7 @@ if(!$p) $p=0;
                 $('#book').turn('previous');
                 
                 pn-=2;
-                window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+div_name+'&p='+pn);
+                window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+'&p='+pn);
             }
             else if (e.keyCode==39){
                 $('#book').turn('next');
@@ -224,7 +210,7 @@ if(!$p) $p=0;
                 pn+=2;
 
 
-                window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+div_name+'&p='+pn);
+                window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+'&p='+pn);
 
             }
 

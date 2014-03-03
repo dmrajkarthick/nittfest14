@@ -252,7 +252,7 @@ $(document).ready( function(){
                     $('#maindiv').css('visibility','hidden');
                     $('#maindiv').css('z-index','0');
                     $(".weapon").css("visibility","hidden");
-                    window.history.pushState("test", "Title", "/nittfest14/main.php");
+                    window.history.pushState("test", "Title", "/git/nittfest14/main.php");
 
                 });
 
@@ -286,7 +286,7 @@ $(document).ready( function(){
                     $(".weapon").css("visibility","hidden");
 
                 });
-                 window.history.pushState("test", "Title", "/nittfest14/main.php");
+                 window.history.pushState("test", "Title", "/git/nittfest14/main.php");
             }
         }
     });
@@ -295,9 +295,9 @@ $(document).ready( function(){
     $('.links').click(function(){
         var div_name=$(this).attr("name")
         if(div_name!='flipbook'){
-            window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+div_name);
+            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name);
         }else{
-             window.history.pushState("test", "Title", "/nittfest14/main.php?ctype="+div_name+"&p="+pn);
+             window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+"&p="+pn);
         }
         //alert(div_name);
 

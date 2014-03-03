@@ -1,8 +1,8 @@
 <?php
 
-define('DSN','mysql:host=localhost;dbname=nittfest');
+define('DSN','mysql:host=localhost;dbname=nittfest14');
 define('DB_USER','root');
-define('DB_PASS','root');
+define('DB_PASS','');
 
 /*$SQLuser='root';
 $SQLpassword='rajkarthick';
