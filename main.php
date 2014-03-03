@@ -32,12 +32,12 @@ if(!$p) $p=0;
 
 
 <!-- <div id='background' ><img src='./images/back.jpg' e='aboutus'/></div> -->
+
 <!--<div id="score"><img src="./img/scorecard.png" /></div>-->
 <div id='dragonfire' >
     <img src='' />
 </div>
 <div id='maindiv' >
-
     <div id="flipbook" class='showdiv'>
      <!--   <img id='arrow' src='./images/arrow.png' /> -->
         <div id='book'>
@@ -99,15 +99,15 @@ if(!$p) $p=0;
 
 
 
-
-<div id='rulebook_button' class='links grow' name='flipbook'><img src='./images/warrior1.png' /></div>
+<div id='rulebook_button' class='links grow' name='book'><img src='./images/warrior1.png' /></div>
 <div id='updates_button' class='links grow' name='updates'><img src='./images/warrior2.png' /></div>
 <div id='scorecard_button' class='links grow' name='scorecard'><img src='./images/warrior3.png' /></div>
 <div id='aboutus_button' class='links grow' name='aboutus'><img src='./images/warrior4.png' /></div>
 <div id='contacts_button' class='links grow' name='contacts'><img src='./images/warrior5.png' /></div>
 <div id='partners_button' class='links grow' name='partners'><img src='./images/warrior6.png' /></div>
 
-<div id='flipbook_text' class="text" >Rulebook</div>
+
+<div id='rulebook_text' class="text" >Rulebook</div>
 <div id='updates_text' class="text" >Updates</div>
 <div id='scorecard_text' class="text" >Scorecard</div>
 <div id='aboutus_text' class="text" >About Us</div>
@@ -248,9 +248,6 @@ if(!$p) $p=0;
         echo '</script>';
         }
 
-    ?>
-
-
+?>
 
 </html>
-

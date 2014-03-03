@@ -98,8 +98,6 @@ function divArrive(div_name){
             $(".showdiv").css("height",h);
 
         });
-
-
 }
 function Hammeranim(th,div_name){
 
@@ -195,9 +193,6 @@ $(function() {
 });
 
 
-
-
-
 //fireContext.fillStyle="rgba(255,255,255,0.01)";
 $(document).ready( function(){
 
@@ -205,15 +200,11 @@ $(document).ready( function(){
     $('ul').hide();
     $('#arrows').hide();
     reinit();
-    
 
     $(".showdiv").hide();
     $(".text").hide();
 
-
-
     //$('#rulebook_button').css('left',l+w+10+'px');
-    
     $('#hide').click(function(){
 
 
@@ -236,9 +227,6 @@ $(document).ready( function(){
         //$("#maindiv").fadeOut(300);
         //$("#book").fadeOut(300);/*( "blind",
         //       {direction: "horizontal"}, 1000 );*/
-
-
-
     });
 
     $("#maindiv").mousedown(function(e){
@@ -273,9 +261,6 @@ $(document).ready( function(){
         }
 
     });
-    
-
-            
 
     $(window).keydown(function(e){
 
@@ -302,12 +287,8 @@ $(document).ready( function(){
 
                 });
                  window.history.pushState("test", "Title", "/nittfest14/main.php");
-
-
             }
         }
-       
-
     });
 
 
@@ -341,21 +322,8 @@ $(document).ready( function(){
        //    $('#itype').attr('value',div_name);
         Hammeranim($(this),div_name);
        // f.submit();
-
-
         //divArrive(div_name);
-
-
-
-
-
-
     });
-    
-    
-   
-
-    
 
 
     // Hover animations for values
@@ -370,6 +338,7 @@ $(document).ready( function(){
         var d_name='#'+hovertext+"_text";
         $(d_name).css("top",tp-30+'px');
         $(d_name).css("left",lf-30+'px');
+
         //alert(tp);
         $(d_name).show();
 
@@ -382,4 +351,3 @@ $(document).ready( function(){
     });
 
 });
-
