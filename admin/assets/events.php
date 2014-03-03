@@ -83,7 +83,6 @@ else if (isset($_GET['up']))
         $pageid = intval($_GET['up']);
         $stmt=$c['db']->query("SELECT parentid,rank,name FROM pages WHERE pageid='$pageid'",array(':pageid' => $pageid));
         $result = $stmt->fetch();
-            //mysql_fetch_row(run_query("SELECT `parentid`,`rank`,`name` FROM `pages` WHERE `pageid`='$pageid';", $c));
         if (!$result)
             throw new Exception('Page to move up not found');
         $rank = $result[1];
@@ -93,8 +92,8 @@ else if (isset($_GET['up']))
         $result=$stmt->fetch();
         if (!$result)
             throw new Exception("Event '$name' is already on top of list.");
-        $c['db']->query_simple("UPDATE pages SET rank='$rank' WHERE pageid='{$res[0]}'");
-        $c['db']->query_simple("UPDATE pages SET rank='{$res[1]}' WHERE pageid`='$pageid'");
+        $c['db']->query_simple("UPDATE pages SET rank='$rank' WHERE pageid='{$result[0]}'");
+        $c['db']->query_simple("UPDATE pages SET rank='{$result[1]}' WHERE pageid='$pageid'");
         $T_INFO = "Event '$name' moved up.";
     } catch (Exception $e) {
         $T_ERROR = $e->getMessage();
@@ -104,20 +103,17 @@ else if (isset($_GET['down']))
         $pageid = intval($_GET['down']);
         $stmt=$c['db']->query("SELECT parentid,rank,name FROM pages WHERE pageid='$pageid'",array(':pageid' => $pageid));
         $result=$stmt->fetch();
-        //$res = mysql_fetch_row(run_query("SELECT `parentid`,`rank`,`name` FROM `pages` WHERE `pageid`='$pageid';", $c));
-
         if (!$result)
             throw new Exception('Page to move down not found');
         $rank = $result[1];
         $parent = $result[0];
         $name = $result[2];
-        $stmt=$c['db']->query("SELECT pageid,rank FROM pages WHERE rank>'$rank' AND parentid='$parent' ORDER BY rank ASC LIMIT 0,1");
+        $stmt=$c['db']->query_simple("SELECT pageid,rank FROM pages WHERE rank>'$rank' AND parentid='$parent' ORDER BY rank ASC LIMIT 0,1");
         $result=$stmt->fetch();
-        //$res = mysql_fetch_row(run_query("SELECT `pageid`,`rank` FROM `pages` WHERE `rank`>'$rank' AND `parentid`='$parent' ORDER BY `rank` ASC LIMIT 0,1", $c));
         if (!$result)
             throw new Exception("Event '$name' is already on bottom of list.");
-        $c['db']->query_simple("UPDATE pages SET rank='$rank' WHERE pageid='{$res[0]}'");
-        $c['db']->query_simple("UPDATE pages SET rank='{$res[1]}' WHERE pageid='$pageid'");
+        $c['db']->query_simple("UPDATE pages SET rank='$rank' WHERE pageid='{$result[0]}'");
+        $c['db']->query_simple("UPDATE pages SET rank='{$result[1]}' WHERE pageid='$pageid'");
         $T_INFO = "Event '$name' moved down.";
     } catch (Exception $e) {
         $T_ERROR = $e->getMessage();
@@ -235,10 +231,10 @@ if ($show) {
         $maxp = $result[1];
     } //rank opp
     $q = $c['db']->query("SELECT pageid,name,title,rank,language FROM pages WHERE parentid=:parentid ORDER BY rank",array(':parentid' => $page));
-    if ($q->fetchColumn()) {
+    if ($q->rowCount()) {
+        //var_dump($q->fetchColumn());
         $con = "<ol>";
-        while ($result = $q->fetch()) {
-            var_dump($result);
+        while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
             $up = $result['rank'] == $maxp ? "<img class='disabled' src='{$PATH}/template/images/up.png' alt='Up' >" : "<a class='action' href='./events.php?up={$result['pageid']}' title='Move Up'><img src='{$PATH}/template/images/up.png' alt='Up' ></a>";
             $down = $result['rank'] == $minp ? "<img class='disabled' src='{$PATH}/template/images/down.png' alt='Down' >" : "<a class='action' href='./events.php?down={$result['pageid']}' title='Move Down'><img src='{$PATH}/template/images/down.png' alt='Down' ></a>";
             $con .= "<li><a class='action' href='./events.php?edit={$result['pageid']}' title='Edit'><img src='{$PATH}/template/images/edit.png' alt='Edit' ></a>&nbsp;&nbsp;&nbsp;

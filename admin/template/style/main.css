@@ -32,7 +32,7 @@ fieldset ul,fieldset ol{
 	padding-left: 40px;
 }
 html{
-	background-color: #b78b44;
+	background-color: #e5e5e5;
 	padding: 0px;
 	margin: 0px;
 	background-image: url('../images/noise.png');
@@ -44,11 +44,11 @@ body{
 	margin: 20px auto;
 	display: block;
 	padding: 20px;
-	color: #592b00;
+	color: #e5e5e5;
 	font-size: 1em;
 	font-family: Ubuntu,Calibri,sans-serif;
-	background-color: #a16000;
-	box-shadow: 0px 0px 20px 10px #895000;
+	background-color: #e5e5e5;
+	box-shadow: 0px 0px 20px 10px #222222;
 	border-radius: 15px;
 }
 .clear{
@@ -79,28 +79,30 @@ body{
 	margin: 5px 0px;
 	margin-top: 0px;
 	font-size: 1.8em;
-	background-color: #c69f66;
+	background-color: #222222;
+    color:#e5e5e5;
 	border-radius: 20px;
 }
 input[type=text],input[type=password]{
-	background-color: #ffed71;
+	background-color: #e5e5e5;
 	width: 200px;	
 }
 #header a:link,#header a:visited{
-	 color: #732;
+	 color: #e5e5e5;
 	 text-decoration: none;
 }
 #header a:hover,#header a:active{
 	 text-decoration: underline;
 }
 #content{
-	background-color: #b78b44;
+	background-color: #b2b2b2;
 	margin: 10px 0px;
 	padding: 10px;
 	border-radius: 10px;
+    overflow: auto;
 }
 #content a:link,#content a:visited{
-	 color: #123478;
+	 color: #111111;
 	 text-decoration: none;
 }
 #content a:hover,#content a:active{
@@ -141,18 +143,19 @@ a.delete:link,a.delete:visited{
 	display: block;
 	text-align: center;
 	font-size: 1em;
-	background-color: #c69f66;
+    color:#e5e5e5;
+	background-color: #222222;
 	border-radius: 10px;
 }
 #logout a:link,#logout a:visited{
-	color: #a22;
+	color: #e5e5e5;
 }
 #footer{
 	font-size: 0.6em;
 	text-align: center;
-	color:#333;
+	color:#e5e5e5;
 	margin: 20px 0px;
-	background-color: #c69f66;
+	background-color: #222222;
 	border: 1px solid #777;
 	border-radius: 5px;
 }
