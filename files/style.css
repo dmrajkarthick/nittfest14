@@ -1,9 +1,9 @@
 body
 {   
     /*background: url('../images/back.jpg') no-repeat;
-    background-size: 100% 100%;
     background-position: absolute;
-    overflow: auto;*/
+    background-size: ;*/
+    overflow: hidden;
     margin:0;
 }
 
@@ -12,13 +12,6 @@ body
   top: 0;
   left: 0;
   overflow: hidden;
-}
-
-#maincontent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 50;
 }
 
 @font-face
@@ -87,14 +80,14 @@ body
     width: 200px;
 }
 #background{
-
     position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    z-index:-1;
-
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:100%;
+    width:100%;
+    z-index:-4;
 }
 
 .tabs
@@ -189,8 +182,8 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
 
 
 .showdiv{
-    background: url('../images/scroll.png');
-    background-position: 50% 50%;
+    background: url('../images/scroll.png?1');
+    /*background-position: 50% 50%;*/
     background-size: 120% 140%;
     background-repeat: no-repeat;
     vertical-align: center;
@@ -206,7 +199,7 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     position : absolute;
 }
 #rulebook_button{
-    top:37em ;
+    top:36em;
     left:80em;
 }
 #scorecard_button{
@@ -306,8 +299,8 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
 
 .weapon img
 {
-    height: 10;
-    width: 10;
+    height: 10px;
+    width: 10px;
 }
 
 #contacts

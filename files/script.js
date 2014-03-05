@@ -23,8 +23,8 @@ function reinit(){
     w=windowWidth*0.60,h=windowHeight*0.9,t=windowHeight*0.05,l=windowWidth*0.20;
     
     $("#book").height(h);
-    $("#maindiv").css('height',windowHeight);
-    $("#maindiv").css('width',windowWidth);
+    //$("#maindiv").css('height',windowHeight);
+    //$("#maindiv").css('width',windowWidth);
     $(".showdiv").css('width',0);
     $(".showdiv").css('height',0);
     $(".showdiv").css("position","absolute");
@@ -34,8 +34,8 @@ function reinit(){
     $(".innerdiv").css('height',0.77*h);
     $(".innerdiv").css('top',0.1*h+20);
     $(".innerdiv").css('left',0.1*w+20);
-    $('#maindiv').css('top',"0px");
-    $('#maindiv').css('left',"0px");
+    $('#maindiv').css('top',"0");
+    $('#maindiv').css('left',"0");
     $('#hide').css('left',l+w+50);
     $('#hide').css('top',t);
     $('#dragonfire').hide();

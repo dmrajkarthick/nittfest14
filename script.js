@@ -4,7 +4,9 @@ nittfest.running = 0;
 nittfest.showDiv = function () {
 
 }
-
+nittfest._easingfunction = function(x, t, b, c, d) {
+	return c*(t/d)+b;
+}
 nittfest.anim_functions = {
 	hammerRotate: function() {
 		$("#hammer").rotate({
@@ -13,9 +15,7 @@ nittfest.anim_functions = {
 			callback: function() {
 				nittfest.anim_functions.hammerRotate();
 			},
-			easing: function (x,t,b,c,d) {        // t: current time, b: begInnIng value, c: change In value, d: duration
-				return c*(t/d)+b;
-			}
+			easing: nittfest._easingfunction
 		});
 	},
 	maceRotate: function() {
@@ -25,9 +25,7 @@ nittfest.anim_functions = {
 			callback: function() {
 				nittfest.anim_functions.maceRotate();
 			},
-			easing: function (x,t,b,c,d) {        // t: current time, b: begInnIng value, c: change In value, d: duration
-				return c*(t/d)+b;
-			}
+			easing: nittfest._easingfunction
 		});
 	},
 	spearRotate: function() {

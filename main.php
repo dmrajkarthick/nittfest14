@@ -6,7 +6,7 @@ require_once __DIR__.'/admin/config/variables.php';
 $PATH = __DIR__."/admin/";
 require_once $PATH.'assets/mysqlconnector.php';
 $ctype = '';
-$p = 0;
+$p = 1;
 if(isset($_GET['ctype'])) {
     $ctype=$_GET['ctype']; 
 }
@@ -18,8 +18,8 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <!doctype html>
 <html>
 <head>
-     <link href="./files/style.css?1" rel="stylesheet" type="text/css">
-     <!-- use only certain classes -->
+    <link href="./files/style.css?2" rel="stylesheet" type="text/css">
+    <!-- use only certain classes -->
     <link href="./files/hover.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- scripts show be at last -->
@@ -161,7 +161,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         }
     }
     $(window).load(function() {
-            $("#background").fullBg();
+           // $("#background").fullBg();
     });
     $(window).ready(function(){
         $('#book').turn({acceleration: true,
@@ -181,7 +181,12 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
                                 },
 
                                 turned: function(e, page) {
+                                    if($('#maindiv').data('open') != 'rulebook') {
+                                        return;
+                                    }
                                     $('#page-number').val(page);
+                                    pn = page;
+                                    window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype=rulebook&p="+pn);
                                 }
                             }
                         });
@@ -193,18 +198,14 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         });
     });
 
-    $(window).bind('keydown', function(e){
+    $(window).bind('keydown', function(e) {
         var div_name='rulebook';
         if (e.target && e.target.tagName.toLowerCase()!='input')
             if (e.keyCode==37){
                 $('#book').turn('previous');
-                pn-=2;
-                window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+'&p='+pn);
             }
             else if (e.keyCode==39){
                 $('#book').turn('next');
-                pn+=2;
-                window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+'&p='+pn);
             }
 
     });
