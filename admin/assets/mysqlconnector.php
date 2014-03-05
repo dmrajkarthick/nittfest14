@@ -54,7 +54,7 @@ class Database
         return $this->connection;
     }
 
-    public function query($sql, $vars)
+    public function query($sql, $vars = array())
     {
         if($this->connection === null )
             $this->connect();
@@ -74,31 +74,8 @@ class Database
 
     }
 }
+
 $c= new ArrayObject();
 require_once('/../config/mySQL.php');
 $c['db']=new Database(DSN,DB_USER,DB_PASS);
 
-
-
-
-
-
-
-
-/*
-function connectMySQL($pathh){
-	require_once($pathh.'config/mySQL.php');
-	$c=@mysql_connect($SQLserver.':'.$SQLport,$SQLuser,$SQLpassword);
-	if(!$c)
-		return false;
-	if(!@mysql_select_db($SQLdatabase,$c))
-		return false;
-	return $c;
-}
-function run_query($str,$con){
-	$res=@mysql_query($str,$con);
-	if(!$res)
-		throw new Exception('MySQL Error: '.mysql_error());
-	else return $res;
-}*/
-?>

@@ -1,16 +1,27 @@
 <?php
-require_once("admin/assets/mysqlconnector.php");
+require_once __DIR__."/admin/assets/mysqlconnector.php";
+
+if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest' ) {
+	echo "unknown request";
+	exit;
+}
+
+if(!isset($_GET['q'])) {
+	echo "error";
+	exit;
+}
+
 $pageno=$_GET['q'];
 if($pageno==3)
-    {
-        echo "<div onclick='p(1)'>General rules</div>";
-        echo "<div onclick='p(5)'>English Lits</div>";
-        echo "<div onclick='p(44)'>Arts</div>";
-        echo "<div onclick='p(55)'>Hindi Lits</div>";
-        echo "<div onclick='p(77)'>Tamil Lits</div>";
-        echo "<div onclick='p(88)'>Culturals</div>";
-        echo "<div onclick='p(99)'>Design & Media</div>";
-	}
+{
+    echo "<div onclick='p(1)'>General rules</div>";
+    echo "<div onclick='p(5)'>English Lits</div>";
+    echo "<div onclick='p(44)'>Arts</div>";
+    echo "<div onclick='p(55)'>Hindi Lits</div>";
+    echo "<div onclick='p(77)'>Tamil Lits</div>";
+    echo "<div onclick='p(88)'>Culturals</div>";
+    echo "<div onclick='p(99)'>Design & Media</div>";
+}
 
 //english lits///////////////////////////////////////////////////////////////////////////////
 if($pageno==5)
@@ -31,16 +42,15 @@ if($pageno>=7 && $pageno<=20)
 
 		$stmt=$c['db']->query_simple("SELECT * FROM pages WHERE parentid='{$parentid}'");
 		$res=$stmt->fetchAll();
-		$j=0;
 
-		for($i=7;$i<=21;$i++)
+		for($i=7,$j=0;$i<=21;$i++)
 		{
 			if($pageno==$i)
 			{
 			echo " Note: Put the scores in the description itself and display it";
 			echo $res[$j]['description'];
-			}
 			$j++;
+			}
 		}
 	}	
 
@@ -60,8 +70,9 @@ if($pageno>=23 and $pageno<=31)
 			if($pageno==$i)
 			{
 			echo $res[$j]['description'];
-			}
 			$j++;
+
+			}
 		}
 
 	}	
@@ -75,6 +86,7 @@ if($pageno>=33 && $pageno<=49)
 
 		$stmt=$c['db']->query_simple("SELECT * FROM pages WHERE parentid='{$parentid}'");
 		$res=$stmt->fetchAll();
+		var_dump($res);
 		$j=0;
 
 		for($i=33;$i<=49;$i++)
