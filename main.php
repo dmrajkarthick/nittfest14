@@ -148,18 +148,18 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             book.turn('addPage', element, page);
             // Let's assum that the data is comming from the server and the request takes 1s.
             setTimeout(function(){
-                        $.ajax({
-                                                url: "a1.php?q="+page,
-                                                async: false,
-                                                success: function (data2) {
-                                                  con=data2;
-                                                
-                                                },
-                                                failure:function(data){
-                                                    alert('Failure');
-                                                }
-                                              });   
-                    element.html('<div class="data">'+con+page+'</div>');
+                    $.ajax({
+                        url: "a1.php?q="+page,
+                        async: false,
+                        success: function (data) {
+                            //con=data;
+                            con=JSON.parse(data);
+                        },
+                        failure:function(data){
+                            alert('Failure');
+                        }
+                    });   
+                    element.html('<div class="data"><div class="page-header">'+con.title+'</div>'+con.desc+'<div class="page-footer">'+page+'</div></div>');
             }, 1000);
         }
     }

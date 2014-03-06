@@ -1,8 +1,3 @@
-<!--changed everything into PDO. Created a class and database connection. To check for PDO, query. Created an ArrayObject
-$c for the database class!
-Commented out the functions connectMySQL and run_query;
--->
-
 <?php
 /*
 connects to the MySQL database using the password and login details given in the "MySQL.ini" file in the SETTING directory

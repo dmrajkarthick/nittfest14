@@ -31,7 +31,6 @@ $(document).ready( function(){
         }, 300, function() {
             nittfest.resetDiv(div);
             $('#maindiv').data('open', '');
-            pn=1;
             window.history.pushState("test", "Title", "?ctype");
         });
     });
@@ -57,7 +56,6 @@ $(document).ready( function(){
             }, 300, function() {
                 nittfest.resetDiv(div);
                 $('#maindiv').data('open', '');
-                pn=1;
                 window.history.pushState("test", "Title", "?ctype");
             });
         }
@@ -78,7 +76,6 @@ $(document).ready( function(){
             }, 300, function() {
                 nittfest.resetDiv(div);
                 $('#maindiv').data('open', '');
-                pn=1;
                 window.history.pushState("test", "Title", "?ctype");
             });
         }
