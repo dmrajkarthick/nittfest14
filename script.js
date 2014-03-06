@@ -1,8 +1,82 @@
 var nittfest = {};
 nittfest.destroy = 0;
 nittfest.running = 0;
-nittfest.showDiv = function () {
+nittfest.divHeight = 0;
+nittfest.divWidth = 0;
+nittfest.divTop = 0;
+nittfest.divLeft = 0;
+nittfest._windowWidth = 0;
+nittfest._windowHeight = 0;
 
+nittfest.resetDiv = function(div) {
+	var $div = $('#'+div);
+    $div.css("top",nittfest.divHeight/2+nittfest.divTop);
+    $div.css("left",nittfest.divWidth/2+nittfest.divLeft);
+    $div.css("width","0");
+    $div.css("height","0");
+    $div.fadeOut(0);
+    $('#maindiv').css('z-index','0');
+    $('#maindiv').css('display','none');
+    $(".weapon").css("display","none");
+}
+
+nittfest.init = function() {
+	var windowHeight, windowWidth;
+
+	windowWidth = $(window).width();
+	windowHeight = window.innerHeight;
+    if(windowHeight<667) { 
+    	windowHeight=667;
+    }
+    if(windowWidth<1366) {
+    	windowWidth=1366;
+    }
+    nittfest.divHeight = windowHeight * 0.95;
+    nittfest.divWidth = windowWidth * 0.85;
+    nittfest.divTop = windowHeight * 0.025;
+    nittfest.divLeft = windowWidth * 0.075;
+
+    $("#book").height(nittfest.divHeight);
+    $("#book").width(nittfest.divWidth);
+    $("#book .cover img").width(nittfest.divWidth/2);
+    var showdiv = $(".showdiv");
+    showdiv.css('width',0);
+    showdiv.css('height',0);
+    showdiv.css("position","absolute");
+    showdiv.css('left',nittfest.divWidth/2+nittfest.divLeft);
+   	showdiv.css('top',nittfest.divHeight/2+nittfest.divTop);
+    $(".innerdiv").css('width',0.5*nittfest.divWidth);
+    $(".innerdiv").css('height',0.76*nittfest.divHeight);
+    $(".innerdiv").css('top',0.12*nittfest.divHeight);
+    $(".innerdiv").css('left',0.25*nittfest.divWidth);
+    $('#maindiv').css('top',"0");
+    $('#maindiv').css('left',"0");
+    $('#hide').css('left',nittfest.divLeft+nittfest.divWidth+50);
+    $('#hide').css('top',nittfest.divTop);
+    $('#dragonfire').hide();
+
+    nittfest._windowHeight = windowHeight;
+    nittfest._windowWidth = windowWidth;
+}
+nittfest.showDiv = function (div) {
+	var $div = $('#'+div);
+
+    $('#maindiv').css("display",'block');
+    $('#maindiv').css('z-index','10');
+    $('#maindiv').data('open',div);
+
+    $div.fadeIn(200);
+    $div.animate({
+        width: "+="+nittfest.divWidth,
+        left: "-="+nittfest.divWidth/2,
+        height: "+="+nittfest.divHeight,
+        top: "-="+nittfest.divHeight/2
+    }, 300, function() {
+        $div.css("top",nittfest.divTop);
+        $div.css("left",nittfest.divLeft);
+        $div.css("width",nittfest.divWidth);
+        $div.css("height",nittfest.divHeight);
+    });
 }
 nittfest._easingfunction = function(x, t, b, c, d) {
 	return c*(t/d)+b;
@@ -36,8 +110,8 @@ nittfest.anim_functions = {
 		});
 	},
 	throwWeapon: function (weapon, target, button) {
-		var targetx=0.2*windowWidth;
-		var targety=0.1*windowHeight;
+		var targetx=0.2*nittfest._windowWidth;
+		var targety=0.1*nittfest._windowHeight;
 		var tp=parseInt($(button).css("top"));
 		var lf=parseInt($(button).css("left"));
 		var hh=15;
@@ -89,7 +163,7 @@ nittfest.anim_functions = {
 
 					setTimeout(
 						function() {
-							divArrive(target);
+							nittfest.showDiv(target);
 						},
 						700
 					);

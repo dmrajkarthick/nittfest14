@@ -18,12 +18,13 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <!doctype html>
 <html>
 <head>
-    <link href="./files/style.css?2" rel="stylesheet" type="text/css">
+    <link href="./files/style.css?3" rel="stylesheet" type="text/css">
     <!-- use only certain classes -->
     <link href="./files/hover.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- scripts show be at last -->
     <script src="./files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./files/jquery.history.min.js"></script>
     <script type="text/javascript" src="./script.js?q"></script>
     <script type="text/javascript" src="./files/fullbg.js"></script>
     <script type="text/javascript" src="./files/turn.js"></script>
@@ -122,12 +123,14 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     var pn;
     if(!pn){
         var pn = "<?php echo $p; ?>";
-        var q = "<?php echo $ctype ?>";
+        var q = "<?php echo $ctype; ?>";
         pn=parseInt(pn);
-        if(q != 'rulebook'){
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+q);
-        }else{
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+q+"&p="+pn);
+        if(q != '') {
+            if(q != 'rulebook') {
+                window.history.pushState("test", "Title", "?ctype="+q);
+            }else{
+                window.history.pushState("test", "Title", "?ctype="+q+"&p="+pn);
+            }
         }
     }
     function p(o){
@@ -160,9 +163,11 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             }, 1000);
         }
     }
+/*
     $(window).load(function() {
-           // $("#background").fullBg();
+            $("#background").fullBg();
     });
+*/
     $(window).ready(function(){
         $('#book').turn({acceleration: true,
                             pages: numberOfPages,
@@ -186,7 +191,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
                                     }
                                     $('#page-number').val(page);
                                     pn = page;
-                                    window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype=rulebook&p="+pn);
+                                    window.history.pushState("test", "Title", "?ctype=rulebook&p="+pn);
                                 }
                             }
                         });
@@ -207,27 +212,17 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             else if (e.keyCode==39){
                 $('#book').turn('next');
             }
-
     });
 </script>
-
-
+<script>
+$(document).ready(function() {
+    if(q != '') {
+        nittfest.showDiv(q);
+    }
+    if(p != 0) {
+        p(pn);
+    }
+});
+</script>
 </body>
-
-<?php
-        
-
-        if($ctype){
-         echo '<script>$(document).ready(function(){
-                  divArrive("'.$ctype.'");';
-        if($p){
-            echo 'p('.$p.');';
-        }
-        echo '});';
-        
-        echo '</script>';
-        }
-
-?>
-
 </html>

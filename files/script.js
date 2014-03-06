@@ -1,54 +1,3 @@
-
-var windowWidth;
-var windowHeight;
-
-var w,h,t,l;
-function reinit(){
-    windowWidth=$(window).width();
-    windowHeight=window.innerHeight;
-    
-    if(windowHeight<667) windowHeight=667;
-    if(windowWidth<1366) windowWidth=1366;
-
-    w=windowWidth*0.60,h=windowHeight*0.9,t=windowHeight*0.05,l=windowWidth*0.20;
-    
-    $("#book").height(h);
-    $(".showdiv").css('width',0);
-    $(".showdiv").css('height',0);
-    $(".showdiv").css("position","absolute");
-    $(".showdiv").css('left',w/2+l);
-    $(".showdiv").css('top',h/2+t);
-    $(".innerdiv").css('width',0.76*w);
-    $(".innerdiv").css('height',0.77*h);
-    $(".innerdiv").css('top',0.1*h+20);
-    $(".innerdiv").css('left',0.1*w+20);
-    $('#maindiv').css('top',"0");
-    $('#maindiv').css('left',"0");
-    $('#hide').css('left',l+w+50);
-    $('#hide').css('top',t);
-    $('#dragonfire').hide();
-}
-
-function divArrive(div_name) {
-        $('#maindiv').css("display",'block');
-        $('#maindiv').css('z-index','10');
-
-        $('#maindiv').data('open',div_name);
-
-        $("#"+div_name).fadeIn(0);
-        $("#"+div_name).animate({
-            width: "+="+w,
-            left: "-="+w/2,
-            height: "+="+h,
-            top: "-="+h/2
-        }, 300, function() {
-            $("#"+div_name).css("top",t);
-            $("#"+div_name).css("left",l);
-            $("#"+div_name).css("width",w);
-            $("#"+div_name).css("height",h);
-        });
-}
-
 $(function() {
       $('#slides').slidesjs({
         width: 30,
@@ -62,112 +11,90 @@ $(function() {
     });
 });
 
-
 $(document).ready( function(){
-
     $('a').hide();
     $('ul').hide();
-    reinit();
-
+    nittfest.init();
     $(".showdiv").hide();
     $(".text").hide();
 
     $('#hide').click(function() {
-
         if($('#maindiv').data('open') == '') {
             return;
         }
-
-        var div_name = $('#maindiv').data('open');
-        $("#"+div_name).animate({
-            width: "-="+w,
-            left: "+="+w/2,
-            height: "-="+h,
-            top: "+="+h/2
+        var div = $('#maindiv').data('open');
+        $("#"+div).animate({
+            width: "-="+nittfest.divWidth,
+            left: "+="+nittfest.divWidth/2,
+            height: "-="+nittfest.divHeight,
+            top: "+="+nittfest.divHeight/2
         }, 300, function() {
-            $("#"+div_name).css("top",h/2+t);
-            $("#"+div_name).css("left",w/2+l);
-            $("#"+div_name).css("width","0");
-            $("#"+div_name).css("height","0");
-            $("#"+div_name).fadeOut(0);
-            $('#maindiv').css('z-index','0');
-            $('#maindiv').css('display','none');
-            $(".weapon").css("display","none");
+            nittfest.resetDiv(div);
+            $('#maindiv').data('open', '');
+            pn=1;
+            window.history.pushState("test", "Title", "?ctype");
         });
-
-        $('#maindiv').data('open', '');
     });
 
     $("#maindiv").mousedown(function(e){
         var mx=e.clientX;
         var my=e.clientY;
-
         if($('#maindiv').data('open') == '') {
             return;
         }
-
-        var div_name = $('#maindiv').data('open');
-
-        if((mx<l) || (mx>l+w) || (my>t+h) || (my<t)){
-            $("#"+div_name).animate({
-                width: "-="+w,
-                left: "+="+w/2,
-                height: "-="+h,
-                top: "+="+h/2
+        var div = $('#maindiv').data('open');
+        if(
+            (mx<nittfest.divLeft)
+             || (mx>nittfest.divLeft+nittfest.divWidth)
+             || (my>nittfest.divTop+nittfest.divHeight)
+             || (my<nittfest.divTop)
+        ) {
+            $("#"+div).animate({
+                width: "-="+nittfest.divWidth,
+                left: "+="+nittfest.divWidth/2,
+                height: "-="+nittfest.divHeight,
+                top: "+="+nittfest.divHeight/2
             }, 300, function() {
-                $("#"+div_name).css("top",h/2+t);
-                $("#"+div_name).css("left",w/2+l);
-                $("#"+div_name).css("width","0");
-                $("#"+div_name).css("height","0");
-                $("#"+div_name).fadeOut(0);
-                $('#maindiv').css('z-index','0');
-                $('#maindiv').css('display','none');
-                $(".weapon").css("display","none");
+                nittfest.resetDiv(div);
+                $('#maindiv').data('open', '');
+                pn=1;
+                window.history.pushState("test", "Title", "?ctype");
             });
-            $('#maindiv').data('open', '');
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php");
         }
     });
 
     $(window).keyup(function(e){
-
         if($('#maindiv').data('open') == '') {
             return;
         }
 
-        var div_name = $('#maindiv').data('open');
+        var div = $('#maindiv').data('open');
         if(e.keyCode==27) {
-            $("#"+div_name).animate({
-                width: "-="+w,
-                left: "+="+w/2,
-                height: "-="+h,
-                top: "+="+h/2
+            $("#"+div).animate({
+                width: "-="+nittfest.divWidth,
+                left: "+="+nittfest.divWidth/2,
+                height: "-="+nittfest.divHeight,
+                top: "+="+nittfest.divHeight/2
             }, 300, function() {
-                $("#"+div_name).css("top",h/2+t);
-                $("#"+div_name).css("left",w/2+l);
-                $("#"+div_name).css("width","0");
-                $("#"+div_name).css("height","0");
-                $("#"+div_name).fadeOut(0);
-                $('#maindiv').css('z-index','0');
-                $('#maindiv').css('display','none');
-                $(".weapon").css("display","none");
+                nittfest.resetDiv(div);
+                $('#maindiv').data('open', '');
+                pn=1;
+                window.history.pushState("test", "Title", "?ctype");
             });
-            $('#maindiv').data('open', '');
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php");
         }
     });
 
 
     $('.links').click(function(){
-        var div_name=$(this).data("target");
-        if(div_name!='rulebook'){
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name);
+        var div = $(this).data("target");
+        if(div != 'rulebook'){
+            window.history.pushState("test", "Title", "?ctype="+div);
         }else{
-            window.history.pushState("test", "Title", "/git/nittfest14/main.php?ctype="+div_name+"&p="+pn);
+            window.history.pushState("test", "Title", "?ctype="+div+"&p="+pn);
         }
 
         var weapon = $(this).data('weapon');
-        nittfest.weaponsAnimate(weapon, div_name, this);
+        nittfest.weaponsAnimate(weapon, div, this);
     });
 
 
