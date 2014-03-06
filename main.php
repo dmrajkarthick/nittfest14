@@ -24,10 +24,10 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- scripts show be at last -->
     <script src="./files/jquery.js" type="text/javascript"></script>
-    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./script.js?q"></script>
     <script type="text/javascript" src="./files/fullbg.js"></script>
     <script type="text/javascript" src="./files/turn.js"></script>
-    <script type="text/javascript" src="./files/jqueryRotate.js"></script>
+    <script type="text/javascript" src="./files/jquery.rotate.min.js"></script>
     <script type="text/javascript" src="./files/script.js"></script>
     <script type="text/javascript" src="./files/jquery.slides.min.js"></script>    
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >

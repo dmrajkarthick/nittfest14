@@ -9,6 +9,7 @@ nittfest._easingfunction = function(x, t, b, c, d) {
 }
 nittfest.anim_functions = {
 	hammerRotate: function() {
+		console.log($("#hammer"));
 		$("#hammer").rotate({
 			angle:0,
 			animateTo:-720,

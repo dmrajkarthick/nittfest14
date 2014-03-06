@@ -1,30 +1,18 @@
-var destroy,running=0;
 
 var windowWidth;
 var windowHeight;
-//var windowWidth=window.innerHeight;
 
-//alert(windowWidth+','+windowHeight);
 var w,h,t,l;
 function reinit(){
     windowWidth=$(window).width();
-
-
     windowHeight=window.innerHeight;
     
     if(windowHeight<667) windowHeight=667;
     if(windowWidth<1366) windowWidth=1366;
-    //var windowWidth=window.innerHeight;
-    $('#body').css('background-size',windowWidth+'px '+windowHeight+'px');
-    //alert(windowWidth+','+windowHeight);
-
-    // Div dimensions    00000000000000000000000000000000000000000000000000000000000000000000000000
 
     w=windowWidth*0.60,h=windowHeight*0.9,t=windowHeight*0.05,l=windowWidth*0.20;
     
     $("#book").height(h);
-    //$("#maindiv").css('height',windowHeight);
-    //$("#maindiv").css('width',windowWidth);
     $(".showdiv").css('width',0);
     $(".showdiv").css('height',0);
     $(".showdiv").css("position","absolute");
@@ -39,10 +27,8 @@ function reinit(){
     $('#hide').css('left',l+w+50);
     $('#hide').css('top',t);
     $('#dragonfire').hide();
-
-    // oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo00
-
 }
+
 function divArrive(div_name) {
         $('#maindiv').css("display",'block');
         $('#maindiv').css('z-index','10');
@@ -63,7 +49,6 @@ function divArrive(div_name) {
         });
 }
 
-//var windowHeight=652;//$(window).height();
 $(function() {
       $('#slides').slidesjs({
         width: 30,
@@ -78,7 +63,6 @@ $(function() {
 });
 
 
-//fireContext.fillStyle="rgba(255,255,255,0.01)";
 $(document).ready( function(){
 
     $('a').hide();
@@ -88,7 +72,6 @@ $(document).ready( function(){
     $(".showdiv").hide();
     $(".text").hide();
 
-    //$('#rulebook_button').css('left',l+w+10+'px');
     $('#hide').click(function() {
 
         if($('#maindiv').data('open') == '') {
@@ -113,9 +96,6 @@ $(document).ready( function(){
         });
 
         $('#maindiv').data('open', '');
-        //$("#maindiv").fadeOut(300);
-        //$("#book").fadeOut(300);/*( "blind",
-        //       {direction: "horizontal"}, 1000 );*/
     });
 
     $("#maindiv").mousedown(function(e){
@@ -194,18 +174,13 @@ $(document).ready( function(){
     // Hover animations for values
 
     $(".links").mouseover(function(e){
-
-        //rotation();
         var hovertext=$(this).data("target");
         var tp=parseInt($(this).css("top"));
         var lf=parseInt($(this).css("left"));
         var d_name='#'+hovertext+"_text";
         $(d_name).css("top",tp-30+'px');
         $(d_name).css("left",lf-30+'px');
-
-        //alert(tp);
         $(d_name).show();
-
     });
 
 

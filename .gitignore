@@ -1,3 +1,5 @@
 .idea
 admin/config/mySQL.php
 Thumbs.db
+uploads
+!uploads/index.html
