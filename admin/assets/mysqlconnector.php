@@ -16,7 +16,7 @@ class Database
      */
     private $connection;
 
-    public function __construct($dsn, $user, $password)
+    public function __construct($dsn, $user = '', $password = '')
     {
         $this->DSN=$dsn;
         $this->SQLuser=$user;
@@ -72,5 +72,5 @@ class Database
 
 $c= new ArrayObject();
 require_once __DIR__.'/../config/mySQL.php';
-$c['db']=new Database(DSN,DB_USER,DB_PASS);
+$c['db']=new Database('sqlite:'.__DIR__.'/../../a.sql.sqlite3.db');
 

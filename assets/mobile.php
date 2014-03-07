@@ -185,41 +185,45 @@ a:visited,.subli a:link,.subli a:visited
 <div id="body-wrapper">
     <div id="header"> <a href="./"><img id="logo-top" src="images/logo.png" alt=""></a> </div> <div id="content-wrap">
 <?php
-        if(!isset($CONTENT)){ ?> <ul class="mainlist">
-<li class="mainli"><a href="index.php?q=e_scoreboard">SCOREBOARD</a></li>
+        if(!isset($CONTENT)){
+?>
+<ul class="mainlist">
+<li class="mainli"><a href="index.php?q=e_scoreboard<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">SCOREBOARD</a></li>
 <li 
-class="mainli"><a href="index.php?q=e_notification">UPDATES</a></li>
+class="mainli"><a href="index.php?q=e_notification<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">UPDATES</a></li>
 <li>
 <ul class="sublist"> <li class="mainli">
-<a href="index.php?q=e_rule">RULEBOOK</a><ul class="sublist">
-<li class="subli"><a href="index.php?q=e_culturals">CULTURALS</a></li>
-<li class="subli"><a href="index.php?q=e_tamil">TAMIL LITS</a></li>
-<li class="subli"><a href="index.php?q=e_hindi">HINDI LITS</a></li>
-<li class="subli"><a href="index.php?q=e_english">ENGLISH LITS</a></li>
-<li class="subli"><a href="index.php?q=e_arts">ARTS</a></li>
-<li class="subli"><a href="index.php?q=e_design">DESIGN &amp; MEDIA</a></li>
+<a href="index.php?q=e_rule<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">RULEBOOK</a><ul class="sublist">
+<li class="subli"><a href="index.php?q=e_culturals<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">CULTURALS</a></li>
+<li class="subli"><a href="index.php?q=e_tamil<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">TAMIL LITS</a></li>
+<li class="subli"><a href="index.php?q=e_hindi<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">HINDI LITS</a></li>
+<li class="subli"><a href="index.php?q=e_english<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">ENGLISH LITS</a></li>
+<li class="subli"><a href="index.php?q=e_arts<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">ARTS</a></li>
+<li class="subli"><a href="index.php?q=e_design<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">DESIGN &amp; MEDIA</a></li>
 </ul></li>
-    <li class="mainli"><a href="index.php?q=e_about-us">ABOUT US</a></li>
+    <li class="mainli"><a href="index.php?q=e_about-us<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">ABOUT US</a></li>
 <li class="mainli"><a
-href="index.php?q=e_contacts">CONTACTS</a></li> <li class="mainli"><a
-href="index.php?q=e_partners">PARTNERS</a></li> </ul> <?php }
-    else {
-        if($LANGUAGE=="Tamil"){
-	    echo " <style> @font-face{ font-family: tamil; src:
-        url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
-        }</style>
-        $CONTENT";
-        }
+href="index.php?q=e_contacts<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">CONTACTS</a></li> <li class="mainli"><a
+href="index.php?q=e_partners<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">PARTNERS</a></li> </ul>
+<?php 
 
-        else if($LANGUAGE=="Hindi")
-        {
-            echo "<style> @font-face{ font-family: hindi; src:
-            url(files/SHREE-DV0726-OT.TTF); } #content{	font-family: hindi;
+        } else {
+            if($LANGUAGE=="Tamil"){
+    	    echo " <style> @font-face{ font-family: tamil; src:
+            url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
             }</style>
             $CONTENT";
-        }
-        else
-        echo $CONTENT;
+            }
+
+            else if($LANGUAGE=="Hindi")
+            {
+                echo "<style> @font-face{ font-family: hindi; src:
+                url(files/SHREE-DV0726-OT.TTF); } #content{	font-family: hindi;
+                }</style>
+                $CONTENT";
+            }
+            else
+            echo $CONTENT;
 } ?>
 </div> <div id="footer"> &copy; NITTFEST '13 Core<br /> <a 
 href="index.php?desktop">View Desktop Site</a><br />&nbsp; </div> </div> 

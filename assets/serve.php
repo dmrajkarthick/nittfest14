@@ -14,7 +14,7 @@ try{
     $cat=$sub[0];
     $q=$sub[1];
     if($cat=="e"){
-        if($q=="notification"){
+        if($q=="notification") {
             $res=$c['db']->query_simple("SELECT * FROM pages WHERE name='prelims' AND parentid='1'");
             $row=$res->fetch(PDO::FETCH_ASSOC);
             if(!$row)	throw new Exception();
@@ -22,7 +22,7 @@ try{
             $title=$row['title'];
             $content= "<div id='content' pollingclass='event' polling=''>";
             if(defined('MOBILE'))
-                $content.="<a class='hometop English' href='./'>Home</a>";
+                $content.="<a class='hometop English' href='./?mobile'>Home</a>";
             $content.='<h2 class="eventname">'.htmlspecialchars_decode($row['title']).'</h2><div name="contentArea">'.$row['description'].'</div>
 ';
             $res=$c['db']->query_simple("SELECT name,title,type FROM pages WHERE parentid='{$row['pageid']}' ORDER BY type");
@@ -33,14 +33,14 @@ try{
                     if($row['type']!=$pr) { if($pr) $content.="</ul>"; $content.="<ul class='eventlist'>
                     <h3>{$row['type']}</h3>"; }
                     $pr=$row['type'];
-                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}'>".htmlspecialchars_decode($row['title']);
+                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&mobile'>".htmlspecialchars_decode($row['title']);
                     if(!defined('MOBILE')) $content.="<img src='images/loading.gif' class='et-load' alt=''>";
                     $content.="</a></li>";
                 }while($row=$res->fetch(PDO::FETCH_ASSOC));
                 $content.= '</ul>';
             }
             $content.="</div>";
-        }else{
+        } else {
             $res=$c['db']->query_simple("SELECT * FROM pages WHERE name='$q' AND parentid='1'");
             $row=$res->fetch(PDO::FETCH_ASSOC);
             if(!$row)	throw new Exception();
@@ -59,14 +59,14 @@ try{
             if($row){
                 $content.= '<h4 id="subeventname" class="English">Events</h4><ul class="eventlist">';
                 do{
-                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}'>".htmlspecialchars_decode($row['title']);
+                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&mobile'>".htmlspecialchars_decode($row['title']);
                     if(!defined('MOBILE')) $content.="<img src='images/loading.gif' class='et-load' alt=''>";
                     $content.="</a></li>";
                 }while($row=$res->fetch(PDO::FETCH_ASSOC));
                 $content.= '</ul>';
             }
         }
-    }else if($cat=="s"){
+    } else if($cat=="s"){
         $res=$c['db']->query_simple("SELECT * FROM pages WHERE name='$q'");
         $row=$res->fetch(PDO::FETCH_ASSOC);
         if(!$row)	throw new Exception();
@@ -89,7 +89,7 @@ try{
         }
         $content= "<div id='content' pollingclass='subevent' polling=''>";
         if(defined('MOBILE'))
-            $content.="<div class='breadcrumbs'><a href='./'>Home</a><span>&nbsp;&gt;&nbsp;</span><a class='eventcat' href='index.php?q=e_{$parentname}'>$parenttitle</a><span>&nbsp;&gt;&nbsp;</span><br /><br /></div>";
+            $content.="<div class='breadcrumbs'><a href='./?mobile'>Home</a><span>&nbsp;&gt;&nbsp;</span><a class='eventcat' href='index.php?q=e_{$parentname}'>$parenttitle</a><span>&nbsp;&gt;&nbsp;</span><br /><br /></div>";
         $content.= "
 <span class='eventname $cls'>".htmlspecialchars_decode($row['title']).'</span>'.(defined('MOBILE')?"<hr />":"").'<div class="subdesc">'.$row['description'].'</div><div class="contentArea">';
         $res=$c['db']->query_simple("SELECT * FROM pages WHERE parentid='{$row['pageid']}'");
@@ -110,7 +110,7 @@ try{
 
             if(!$tab) $tab=0;
             while($row=$res->fetch(PDO::FETCH_ASSOC)){
-                $head.="<a class='tabHead ".($i==$tab?"selected":"")."' name='$i' href='index.php?q={$_GET['q']}&t={$i}'>".$row['title']."</a>";
+                $head.="<a class='tabHead ".($i==$tab?"selected":"")."' name='$i' href='index.php?q={$_GET['q']}&t={$i}&mobile'>".$row['title']."</a>";
                 if($i==$tab) $body.="<div class='tabBody tab{$i}'>{$row['description']}</div>";
                 $i++;
             }

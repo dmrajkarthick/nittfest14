@@ -180,7 +180,9 @@ if (isset($_GET['edit']))
             foreach ($score as $s)
                 $sc .= "<li><input type='text' name='score[]' value='{$s}'></li>";
         }
-        $text = stripslashes($result['description']);
+        var_dump($result);
+        $text = str_replace( '\n', '', $result['description']);
+        var_dump($text);
         $lang = '';
         foreach (array('English', 'Hindi', 'Tamil') as $l)
             $lang .= "<option" . ($l == $result['language'] ? ' SELECTED' : '') . ">$l</option>";
@@ -230,9 +232,10 @@ if ($show) {
         $minp = $result[0];
         $maxp = $result[1];
     } //rank opp
-    $q = $c['db']->query("SELECT pageid,name,title,rank,language FROM pages WHERE parentid=:parentid ORDER BY rank",array(':parentid' => $page));
-    if ($q->rowCount()) {
-        //var_dump($q->fetchColumn());
+    $q = $c['db']->query("SELECT COUNT(*) FROM pages WHERE parentid=:parentid", array(':parentid' => $page));
+    $result = $q->fetch();
+    if ($result[0] > 0) {
+        $q = $c['db']->query("SELECT pageid,name,title,rank,language FROM pages WHERE parentid=:parentid ORDER BY rank",array(':parentid' => $page));
         $con = "<ol>";
         while ($result = $q->fetch(PDO::FETCH_ASSOC)) {
             $up = $result['rank'] == $maxp ? "<img class='disabled' src='{$PATH}/template/images/up.png' alt='Up' >" : "<a class='action' href='./events.php?up={$result['pageid']}' title='Move Up'><img src='{$PATH}/template/images/up.png' alt='Up' ></a>";
