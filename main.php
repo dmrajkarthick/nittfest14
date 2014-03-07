@@ -32,24 +32,24 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     <script type="text/javascript" src="./files/script.js"></script>
     <script type="text/javascript" src="./files/jquery.slides.min.js"></script>    
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-    <title>NITTFEST '14</title>
+    <title>NITTFEST '14 - Dominate or Submit</title>
 </head>
 <body>
-<div id='dragonfire' >
-    <img src=''/>
+<div id="dragonfire">
+    <img src=""/>
 </div>
 <img src="images/back.jpg" alt="" id="background" />
 
 <div id="maindiv" data-open="">
     <div id="rulebook" class="showdiv">
         <div id='book'>
-            <div class="cover">
+            <div class="cover hard">
                 <img src="images/rulebook.jpg">
             </div>
         </div>
     </div>
-    <div id='aboutus' class='showdiv'>
-        <div class='innerdiv'>
+    <div id="aboutus" class="showdiv">
+        <div class="innerdiv">
             <?php 
                 $stmt=$c['db']->query_simple("SELECT * FROM pages where name='about-us' and parentid=1");
                 $res=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -57,19 +57,19 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             ?>
         </div>
     </div>
-    <div id='updates' class='showdiv' >
-        <div class='innerdiv'>
+    <div id="updates" class="showdiv">
+        <div class="innerdiv">
             Updates:
             Coming soon!!
         </div>
     </div>
-    <div id='scorecard' class='showdiv' >
-        <div class='innerdiv'>
+    <div id="scorecard" class="showdiv">
+        <div class="innerdiv">
             Coming soon!!
         </div>
     </div>
-    <div id='contacts' class='showdiv' >
-        <div class='innerdiv' >
+    <div id="contacts" class="showdiv">
+        <div class="innerdiv">
         <?php
             $stmt=$c['db']->query_simple("select * from pages where name='contacts' and parentid=1");
             $res=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -77,27 +77,27 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         ?>
         </div>
     </div>
-    <div id='partners' class='showdiv' >
-        <div class='innerdiv'>
+    <div id="partners" class="showdiv">
+        <div class="innerdiv">
             Coming Soon!!
         </div>
     </div>
-    <button id='hide' class='button'></button><br />
+    <button id="hide" class="button"></button><br />
 </div>
 
-<div id='rulebook_button' class='links grow' data-target="rulebook" data-weapon="hammer"><img src='./images/warrior1.png' /></div>
-<div id='updates_button' class='links grow' data-target="updates" data-weapon="mace"><img src='./images/warrior2.png' /></div>
-<div id='scorecard_button' class='links grow' data-target="scorecard" data-weapon="spear"><img src='./images/warrior3.png' /></div>
-<div id='aboutus_button' class='links grow' data-target="aboutus" data-weapon="hammer"><img src='./images/warrior4.png' /></div>
-<div id='contacts_button' class='links grow'  data-target="contacts" data-weapon="mace"><img src='./images/warrior5.png' /></div>
-<div id='partners_button' class='links grow'  data-target="partners" data-weapon="spear"><img src='./images/warrior6.png' /></div>
+<div id="rulebook_button" class="links grow" data-target="rulebook" data-weapon="hammer"><img src="./images/warrior1.png" /></div>
+<div id="updates_button" class="links grow" data-target="updates" data-weapon="mace"><img src="./images/warrior2.png" /></div>
+<div id="scorecard_button" class="links grow" data-target="scorecard" data-weapon="spear"><img src="./images/warrior3.png" /></div>
+<div id="aboutus_button" class="links grow" data-target="aboutus" data-weapon="hammer"><img src="./images/warrior4.png" /></div>
+<div id="contacts_button" class="links grow"  data-target="contacts" data-weapon="mace"><img src="./images/warrior5.png" /></div>
+<div id="partners_button" class="links grow"  data-target="partners" data-weapon="spear"><img src="./images/warrior6.png" /></div>
 
-<div id='rulebook_text' class="text" >Rulebook</div>
-<div id='updates_text' class="text" >Updates</div>
-<div id='scorecard_text' class="text" >Scorecard</div>
-<div id='aboutus_text' class="text" >About Us</div>
-<div id='contacts_text' class="text" >Contacts</div>
-<div id='partners_text' class="text" >Partners</div>
+<div id="rulebook_text" class="text" >Rulebook</div>
+<div id="updates_text" class="text" >Updates</div>
+<div id="scorecard_text" class="text" >Scorecard</div>
+<div id="aboutus_text" class="text" >About Us</div>
+<div id="contacts_text" class="text" >Contacts</div>
+<div id="partners_text" class="text" >Partners</div>
 
 <div id="hammer" class="weapon">
     <img src="./images/hammer.png" />
@@ -125,8 +125,8 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         var pn = "<?php echo $p; ?>";
         var q = "<?php echo $ctype; ?>";
         pn=parseInt(pn);
-        if(q != '') {
-            if(q != 'rulebook') {
+        if(q != "") {
+            if(q != "rulebook") {
                 window.history.pushState("test", "Title", "?ctype="+q);
             }else{
                 window.history.pushState("test", "Title", "?ctype="+q+"&p="+pn);
@@ -134,25 +134,23 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         }
     }
     function p(o){
-        $('#book').turn('page', o);
+        $("#book").turn("page", o);
     }
     var numberOfPages = 1000; 
-    // Adds the pages that the book will need
     function addPage(page, book) {
         var con;
-        //  First check if the page is already in the book
-        if (!book.turn('hasPage', page)) {
-            // Create an element for this page
-            var element = $('<div />', {'class': 'page '+((page%2==0) ? 'odd' : 'even'), 'id': 'page-'+page}).html('<i class="loader"></i>');
-            // If not then add the page
+        if (!book.turn("hasPage", page)) {
+            var element = $("<div />",
+                {
+                    "class": "page "+((page%2==0) ? 'odd' : 'even'),
+                    "id": "page-"+page
+                }).html('Loading ...');
             book.turn('addPage', element, page);
-            // Let's assum that the data is comming from the server and the request takes 1s.
             setTimeout(function(){
                     $.ajax({
                         url: "a1.php?q="+page,
                         async: false,
                         success: function (data) {
-                            //con=data;
                             con=JSON.parse(data);
                         },
                         failure:function(data){
@@ -163,38 +161,31 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             }, 1000);
         }
     }
-/*
-    $(window).load(function() {
-            $("#background").fullBg();
-    });
-*/
+
     $(window).ready(function(){
-        $('#book').turn({acceleration: true,
-                            pages: numberOfPages,
-                            elevation: 50,
-                            gradients: !$.isTouch,
-                            when: {
-                                turning: function(e, page, view) {
-
-                                    // Gets the range of pages that the book needs right now
-                                    var range = $(this).turn('range', page);
-
-                                    // Check if each page is within the book
-                                    for (page = range[0]; page<=range[1]; page++) 
-                                        addPage(page, $(this));
-
-                                },
-
-                                turned: function(e, page) {
-                                    if($('#maindiv').data('open') != 'rulebook') {
-                                        return;
-                                    }
-                                    $('#page-number').val(page);
-                                    pn = page;
-                                    window.history.pushState("test", "Title", "?ctype=rulebook&p="+pn);
-                                }
-                            }
-                        });
+        $('#book').turn({
+            acceleration: true,
+            pages: numberOfPages,
+            elevation: 50,
+            gradients: !$.isTouch,
+            when: {
+                turning: function(e, page, view) {
+                    // Gets the range of pages that the book needs right now
+                    var range = $(this).turn('range', page);
+                    // Check if each page is within the book
+                    for (page = range[0]; page<=range[1]; page++) 
+                        addPage(page, $(this));
+                },
+                turned: function(e, page) {
+                    if($('#maindiv').data('open') != 'rulebook') {
+                        return;
+                    }
+                    $('#page-number').val(page);
+                    pn = page;
+                    window.history.pushState("test", "Title", "?ctype=rulebook&p="+pn);
+                }
+            }
+        });
 
         $('#number-pages').html(numberOfPages);
         $('#page-number').keydown(function(e){

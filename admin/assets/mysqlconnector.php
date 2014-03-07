@@ -71,6 +71,6 @@ class Database
 }
 
 $c= new ArrayObject();
-require_once('/../config/mySQL.php');
+require_once __DIR__.'/../config/mySQL.php';
 $c['db']=new Database(DSN,DB_USER,DB_PASS);
 
