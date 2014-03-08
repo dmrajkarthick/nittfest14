@@ -336,6 +336,13 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     height:500px;*/
 }
 
+.even .data
+ {
+    border-left: 2px solid #000;
+     height:inherit;
+     background-image: url('../images/page_bg.png');
+     background-repeat: repeat-y;
+ }
 #book .turn-page{
     background-color:white;
     overflow: auto;

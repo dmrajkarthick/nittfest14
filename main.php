@@ -157,7 +157,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
                             alert('Failure');
                         }
                     });   
-                    element.html('<div class="data"><div class="page-header">'+con.title+'</div>'+con.desc+'<div class="page-footer">'+page+'</div></div>');
+                    element.html('<div class="data"><div class="page-header">'+con.title+'</div>'+<div class="page-content">'+con.desc+'</div>+'<div class="page-footer">'+page+'</div></div>');
             }, 1000);
         }
     }

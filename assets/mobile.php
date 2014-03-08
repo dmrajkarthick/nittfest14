@@ -225,8 +225,8 @@ href="index.php?q=e_partners<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>
             else
             echo $CONTENT;
 } ?>
-</div> <div id="footer"> &copy; NITTFEST '13 Core<br /> <a 
-href="index.php?desktop">View Desktop Site</a><br />&nbsp; </div> </div> 
+</div> <div id="footer"> &copy; NITTFEST '14 Core<br />
+<!-- <a href="index.php?desktop">View Desktop Site</a>--><br />&nbsp; </div> </div> 
 <script> var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-38882508-1']);
   _gaq.push(['_setDomainName', 'nittfest.in']);

@@ -15,14 +15,16 @@ $pageno=$_GET['q'];
 if($pageno==3)
 {
 	echo json_encode(array(
-		'title' => 'RuleBook',
-		'desc' => "<div onclick='p(1)'>General rules</div>
-    		<div onclick='p(5)'>English Lits</div>
-    		<div onclick='p(44)'>Arts</div>
-    		<div onclick='p(55)'>Hindi Lits</div>
-    		<div onclick='p(77)'>Tamil Lits</div>
-    		<div onclick='p(88)'>Culturals</div>
-    		<div onclick='p(99)'>Design & Media</div>"
+		'title' => "Index",
+		'desc' => "<div id='index_page' style='color: brown'>
+		 			<div onclick='p(1)'>General rules</div>
+    			<div onclick='p(23)'>Arts</div>
+   				<div onclick='p(33)'>Culturals</div>
+   				<div onclick='p(51)'>Design and Media</div>
+     			<div onclick='p(63)'>Hindi</div>
+     			<div onclick='p(80)'>Tamil</div>
+     			<div onclick='p(97)'>Impromptu</div>
+     		</div>"
 	));
 	die();
 }
