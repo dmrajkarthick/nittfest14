@@ -80,7 +80,7 @@ nittfest.showDiv = function (div) {
 }
 nittfest._easingfunction = function(x, t, b, c, d) {
 	return c*(t/d)+b;
-}
+};
 nittfest.anim_functions = {
 	hammerRotate: function() {
 		$("#hammer").rotate({
@@ -106,6 +106,16 @@ nittfest.anim_functions = {
 		$("#spear").rotate({
 			angle:50,
 			animateTo:-40,
+		});
+	},
+	catapultRotate: function() {
+		$("#catapult-rock").rotate({
+			angle: 0,
+			animateTo: -720,
+			callback: function() {
+				nittfest.anim_functions.catapultRotate();
+			},
+			easing: nittfest._easingfunction
 		});
 	},
 	throwWeapon: function (weapon, target, button) {
@@ -151,7 +161,7 @@ nittfest.anim_functions = {
 					$("#"+weapon+" img").css('width',30);
 					running=0;
 					$('#dragonfire').show();
-					$('#dragonfire img').attr('src','./images/fire1.gif');
+					$('#dragonfire img').attr('src','./images/fire1.gif?a=1');
 					setTimeout(
 						function() {
 							$('#dragonfire').hide();
@@ -199,5 +209,9 @@ nittfest.weaponsAnimate = function (weapon, target, button) {
 			nittfest.anim_functions.spearRotate();
 			nittfest.anim_functions.throwWeapon(weapon, target, button);
 			break;
+		case 'catapult-rock':
+			//to do catapult-arm .... setTimeout
+			nittfest.anim_functions.catapultRotate();
+			nittfest.anim_functions.throwWeapon(weapon, target, button);
 	}
 };
