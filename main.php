@@ -38,7 +38,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <div id="dragonfire">
     <img src=""/>
 </div>
-<img src="images/back.jpg" alt="" id="background" />
+<img src="images/final1.png" alt="" id="background" />
 
 <div id="maindiv" data-open="">
     <div id="rulebook" class="showdiv">
