@@ -1,6 +1,3 @@
-<!-- Recheck whether the login details are correct or not with session ids and cookies constant variables.
-     Then check for database connections as changes are gonna be made in database. -->
-
 <?php
 /*if(!defined('NAMESPACE111222333')){
 	header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
