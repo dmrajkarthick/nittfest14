@@ -208,19 +208,19 @@ href="index.php?q=e_partners<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>
 <?php 
 
         } else {
-            if($LANGUAGE=="Tamil"){
-    	    echo " <style> @font-face{ font-family: tamil; src:
-            url(files/ADAANA.TTF); } #content{	font-family: tamil !important;
-            }</style>
-            $CONTENT";
-            }
-
-            else if($LANGUAGE=="Hindi")
+            if($LANGUAGE=="Hindi")
             {
                 echo "<style> @font-face{ font-family: hindi; src:
-                url(files/SHREE-DV0726-OT.TTF); } #content{	font-family: hindi;
+                url(files/SHREE-DV0726-OT.TTF); } #content{ font-family: hindi;
                 }</style>
                 $CONTENT";
+            }
+            
+            else if($LANGUAGE=="Tamil"){
+            echo " <style> @font-face{ font-family: tamil; src:
+            url(files/ADAANA.TTF); } #content{  font-family: tamil !important;
+            }</style>
+            $CONTENT";
             }
             else
             echo $CONTENT;

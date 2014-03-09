@@ -112,10 +112,10 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <div class="container">
     <div id="slides">
     <!-- dynamic -->
-        <img src="images/spear.png" >
-        <img src="images/hammer.png" >
-        <img src="images/mace.png" >
-        <img src="images/spear.png"     >
+        <img src="images/spear.png">
+        <img src="images/hammer.png">
+        <img src="images/mace.png">
+        <img src="images/spear.png">
     </div>
 </div>
 <script type="text/javascript">
@@ -124,9 +124,10 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     if(!pn){
         var pn = "<?php echo $p; ?>";
         var q = "<?php echo $ctype; ?>";
+        <?php var_dump($p);?>
         pn=parseInt(pn);
         if(q != "") {
-            if(q != "rulebook") {
+            if(q == "rulebook") {
                 window.history.pushState("test", "Title", "?ctype="+q);
             }else{
                 window.history.pushState("test", "Title", "?ctype="+q+"&p="+pn);
@@ -157,7 +158,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
                             alert('Failure');
                         }
                     });   
-                    element.html('<div class="data"><div class="page-header">'+con.title+'</div>'+<div class="page-content">'+con.desc+'</div>+'<div class="page-footer">'+page+'</div></div>');
+                    element.html('<div class="data"><div class="page-header">'+con.title+'</div>'+'<div class="page-content">'+con.desc+'</div>'+'<div class="page-footer">'+page+'</div></div>');
             }, 1000);
         }
     }

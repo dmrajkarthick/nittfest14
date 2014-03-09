@@ -71,7 +71,7 @@ try{
         $row=$res->fetch(PDO::FETCH_ASSOC);
         if(!$row)	throw new Exception();
         $scores=$row['scores'];
-        $stmt=$c['db']->query_simple("SELECT name,title FROM pages WHERE pageid='{$row['parentid']}'");
+        $stmt=$c['db']->query_simple("SELECT * FROM pages WHERE pageid='{$row['parentid']}'");
         $res1=$stmt->fetch(PDO::FETCH_ASSOC);
         $parentname=$res1['name'];
         $parenttitle=$res1['title'];
@@ -80,6 +80,7 @@ try{
             $title='Tamil Lits';
         }
         else if($row['language']=='Hindi'){
+            var_dump($res1);
             $cls='Hindi';
             $title='Hindi Lits';
         }

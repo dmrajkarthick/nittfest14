@@ -189,8 +189,14 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     vertical-align: center;
     z-index:4;
 }
+
+/*Changes*/
 .innerdiv{
     position: absolute;
+    text-align:center;
+    font-size:20px;
+    color:#42371b;
+    font-weight: bold;
     vertical-align: center;
     overflow: auto;
 }
@@ -338,6 +344,7 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
 
 .even .data
  {
+    
     border-left: 2px solid #000;
      height:inherit;
      background-image: url('../images/page_bg.png');
@@ -374,6 +381,12 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     line-height:30px;
 }
 
+.page-header
+{
+
+}
+
+.page
 #controls{
     width:800px;
     text-align:center;

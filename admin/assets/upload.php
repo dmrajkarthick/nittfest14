@@ -14,23 +14,24 @@ try{
 		$type=2;
 	$path=str_replace(' ','_',$_FILES['picture']['name']);
 	$temp_file="./../../uploads/".$path;
-        //var_dump(move_uploaded_file($_FILES['picture']['tmp_name'],$temp_file));
 	if(!move_uploaded_file($_FILES['picture']['tmp_name'],$temp_file))
 		throw new Exception('Upload save error!');
 	}else throw new Exception('Please select a file');
-	$q=$c['db']->query_simple("INSERT INTO uploads VALUES (NULL,'$path','$type','{$_FILES['picture']['type']}',NULL)");
+	$time=date('Y-m-d H:i:s');
+	$q=$c['db']->query_simple("INSERT INTO uploads VALUES (NULL,'$path','$type','{$_FILES['picture']['type']}','$time')");
 	if($q) $T_INFO='Upload successful!';
 	else throw new Exception('Not added. '.mysql_error());
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
 }
+
+
 else if(isset($_GET['delete']))
 try{
 	$uploader=intval($_GET['delete']);
     $stmt=$c['db']->query("SELECT name FROM uploads WHERE uploadid=:uploadid",array(':uploadid' => $uploader));
 	$res=$stmt->fetch();
-        //mysql_fetch_row(run_query("SELECT `name` FROM `uploads` WHERE `uploadid`='$uploader';",$c));
-	if(!$res)
+		if(!$res)
 		throw new Exception('Invalid upload specified.');
 	$name=$res[0];
 	@unlink("./../../uploads/".$name);
@@ -39,11 +40,13 @@ try{
 }catch(Exception $e){
 	$T_ERROR=$e->getMessage();
 }
+
+
 $T_TITLE='NITTFEST Uploads Management';
 $T_HEADER='Uploads';
 $T_CONTENT='';
 $q=$c['db']->query_simple("SELECT * FROM uploads ORDER BY time DESC");
-if($q->rowCount()){
+if($q->fetchColumn()){
 	$con="<ul>";
 	while($res=$q->fetch()){
 		$image=$res['type']==2?"<img class='thumbnail' src='{$IMAGEPATH}/uploads/{$res['name']}' alt='' >":'';

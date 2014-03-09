@@ -72,7 +72,6 @@ else if (isset($_POST['updateSubmit']))
         $lang = in_array($_POST['language'], array('English', 'Hindi', 'Tamil')) ? $_POST['language'] : 'English';
         $desc = addslashes($_POST['description']);
         $c['db']->query_simple("UPDATE pages SET name='$name',title='$title',type='$type',scores='$score',language='$lang',description='$desc' WHERE pageid='$editpage'");
-        //run_query("UPDATE `pages` SET `name`='$name',`title`='$title',`type`='$type',`scores`='$score',`language`='$lang',`description`='$desc' WHERE `pageid`='$editpage';", $c);
         $T_INFO = 'Event details updated!';
     } catch (Exception $e) {
         $T_ERROR = $e->getMessage();
@@ -180,9 +179,9 @@ if (isset($_GET['edit']))
             foreach ($score as $s)
                 $sc .= "<li><input type='text' name='score[]' value='{$s}'></li>";
         }
-        var_dump($result);
+        
         $text = str_replace( '\n', '', $result['description']);
-        var_dump($text);
+        
         $lang = '';
         foreach (array('English', 'Hindi', 'Tamil') as $l)
             $lang .= "<option" . ($l == $result['language'] ? ' SELECTED' : '') . ">$l</option>";

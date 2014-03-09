@@ -45,9 +45,10 @@ nittfest.init = function() {
     showdiv.css("position","absolute");
     showdiv.css('left',nittfest.divWidth/2+nittfest.divLeft);
    	showdiv.css('top',nittfest.divHeight/2+nittfest.divTop);
-    $(".innerdiv").css('width',0.5*nittfest.divWidth);
-    $(".innerdiv").css('height',0.76*nittfest.divHeight);
-    $(".innerdiv").css('top',0.12*nittfest.divHeight);
+   	//changes
+    $(".innerdiv").css('width',0.52*nittfest.divWidth);
+    $(".innerdiv").css('height',0.70*nittfest.divHeight);
+    $(".innerdiv").css('top',0.16*nittfest.divHeight);
     $(".innerdiv").css('left',0.25*nittfest.divWidth);
     $('#maindiv').css('top',"0");
     $('#maindiv').css('left',"0");
