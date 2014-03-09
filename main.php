@@ -124,7 +124,6 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     if(!pn){
         pn = "<?php echo $p; ?>";
         var q = "<?php echo $ctype; ?>";
-        <?php var_dump($p);?>
         pn=parseInt(pn);
         if(q != "") {
             if(q == "rulebook") {
@@ -149,17 +148,21 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             book.turn('addPage', element, page);
             setTimeout(function(){
                     $.ajax({
-                        url: "a1.php?q="+page,
+                        url: "a2.php?q="+page,
                         async: false,
                         success: function (data) {
                             con=JSON.parse(data);
                         },
                         failure:function(data){
-                            alert('Failure');
+                            con = {
+                                'title': 'Error',
+                                'description': '',
+                                'language': 'English'
+                            };
                         }
                     });   
 
-                    element.html('<div class="data"><div class="page-header">'+con.title+'</div><div class="page-content">'+con.desc+'</div><div class="page-footer">'+page+'</div></div>');
+                    element.html('<div class="data ' + con.language.toLowerCase() + '"><div class="page-header">' + con.title + '</div><div class="page-content">' + con.description + '</div><div class="page-footer">'+page+'</div></div>');
             }, 1000);
         }
     }

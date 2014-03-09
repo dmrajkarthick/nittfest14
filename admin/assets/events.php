@@ -80,14 +80,14 @@ else if (isset($_POST['updateSubmit']))
 else if (isset($_GET['up']))
     try {
         $pageid = intval($_GET['up']);
-        $stmt=$c['db']->query("SELECT parentid,rank,name FROM pages WHERE pageid='$pageid'",array(':pageid' => $pageid));
+        $stmt=$c['db']->query("SELECT parentid,rank,name FROM pages WHERE pageid=:pageid",array(':pageid' => $pageid));
         $result = $stmt->fetch();
         if (!$result)
             throw new Exception('Page to move up not found');
         $rank = $result[1];
         $parent = $result[0];
         $name = $result[2];
-        $stmt=$c['db']->query("SELECT pageid,rank FROM pages WHERE rank<'$rank' AND parentid=:parentid ORDER BY rank DESC LIMIT 0,1",array(':parentid' => $parent));
+        $stmt=$c['db']->query("SELECT pageid,rank FROM pages WHERE rank<:rank AND parentid=:parentid ORDER BY rank DESC LIMIT 0,1",array(':parentid' => $parent, ':rank' => $rank));
         $result=$stmt->fetch();
         if (!$result)
             throw new Exception("Event '$name' is already on top of list.");

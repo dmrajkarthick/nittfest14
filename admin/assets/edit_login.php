@@ -1,10 +1,3 @@
-<!--
-     Change the login details.
-     require_once of security.php: To make sure current authentication is valid and db is connected.
-     Change password. Updated in the database by appending the hashed password with the user name.
--->
-
-
 <?php
 define('NAMESPACE111222333','##$$');
 $PATH='../';
@@ -14,8 +7,7 @@ try{
     $res=$stmt->fetch();
     if(!$res)
         throw new Exception('aksjlaksjdfklsjf;');
-	//$res=mysql_fetch_row(run_query("SELECT `value` FROM `{$TABLEPREFIX}config` WHERE `name`='admin_login';",$c));
-	$res=explode(';',$res[0]);
+        	$res=explode(';',$res[0]);
 	$user=$res[0];
 	$pw=$res[1];
 }catch(Exception $e){
