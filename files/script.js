@@ -102,7 +102,7 @@ $(document).ready( function(){
         var tp=parseInt($(this).css("top"));
         var lf=parseInt($(this).css("left"));
         var d_name='#'+hovertext+"_text";
-        $(d_name).css("top",tp-30+'px');
+        $(d_name).css("top",tp-40+'px');
         $(d_name).css("left",lf-30+'px');
         $(d_name).show();
     });

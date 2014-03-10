@@ -21,6 +21,7 @@ if(!defined('NAMESPACE111222333')){
 	if(isset($T_HEADSCRIPTS))
 		echo $T_HEADSCRIPTS;
  ?>
+
 </head>
 <body>
 <div id="header"><h2><?php echo ($PATH?"<a href='{$PATH}index.php'>Home</a>&nbsp;>&nbsp;":"").$T_HEADER; ?></h2></div>

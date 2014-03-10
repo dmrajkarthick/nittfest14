@@ -3,10 +3,54 @@ body
     /*background: url('../images/back.jpg') no-repeat;
     background-position: absolute;
     background-size: ;*/
-    overflow: hidden;
+    overflow: auto;
     margin:0;
 }
 
+@font-face {
+    font-family: 'Hindi_Font';
+    src: url('fonts/Devlys_010.eot');
+    src: local('☺'), url('fonts/Devlys_010.woff') format('woff'), url('fonts/Devlys_010.ttf') format('truetype'), url('fonts/Devlys_010.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tamil_Font';
+    src: url('fonts/ADAANA.eot');
+    src: local('☺'), url('fonts/ADAANA.woff') format('woff'), url('fonts/ADAANA.ttf') format('truetype'), url('fonts/ADAANA.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.hindi {
+    font-family: 'Hindi_Font';
+}
+.tamil {
+    font-family: 'Tamil_Font';
+}
+.grow {
+    display: inline-block;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.grow:hover {
+    -webkit-transform: scale(1.8);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
+}
+.stretch {
+    height:100%;
+    width:100%;
+    min-height: 618.75px;
+    min-width: 1100px;
+}
 .fullBg {
   position: absolute;
   top: 0;
@@ -50,8 +94,9 @@ body
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 */
-#slides {
 
+
+#slides {
   display: none;
   width: 100px;
   height:100px;
@@ -80,16 +125,13 @@ body
     width: 200px;
 }
 #background{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height:100%;
-    width:100%;
+    position: absolute;
     z-index:-4;
 }
-
+#mountain {
+    position: absolute;
+    z-index:-4;
+}
 .tabs
 {
     height:20px;
@@ -143,22 +185,21 @@ body
 
 }
 #dragonfire img{
-
-    /*height:600px;
-    width:800px;*/
     border: none;
 }
 
 .text{
-font-family: 'Comic Sans MS', cursive;
-line-height: 1em;
-color: #c9740c;
-font-size: 24px;
-text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(26,-59,-163),3px 3px 2px rgba(0,0,0,1),3px 3px 1px rgba(0,0,0,0.5),0px 0px 2px rgba(0,0,0,.2);}
+    width:150px;
+    position: absolute;
+    font-family: 'Comic Sans MS', cursive;
+    line-height: 1em;
+    color: #c9740c;
+    font-size: 24px;
+}
 
 .links img{
-    width:30px;
-    height:50px;
+    width:25px;
+    height:60px;
     opacity:1.0;
 }
 .nhard{
@@ -168,18 +209,12 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     background: brown;
 }
 
-.text{
-    position:absolute;
-}
-
 #rulebook{
     background: none;
     position: absolute;
     top:0px;
     left:0px;
-
 }
-
 
 .showdiv{
     background: url('../images/scroll.png?123123');
@@ -190,7 +225,6 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     z-index:4;
 }
 
-/*Changes*/
 .innerdiv{
     position: absolute;
     text-align:center;
@@ -200,43 +234,43 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
     vertical-align: center;
     overflow: auto;
 }
-
+#top-container {
+    position: absolute;
+}
 .links{
-    position : absolute;
+    position: absolute;
 }
 #rulebook_button{
-    top:36em;
-    left:80em;
+    top:85%;
+    left:80%;
 }
 #scorecard_button{
-    top:27em;
-    left:40em;
+    top:64%;
+    left:67%;
 }
 
 #updates_button{
-    top:30em;
-    left:50em;
+    top:85%;
+    left:90%;
 }
 
 #partners_button{
-    top:35em;
-    left:73em;
+    top:78%;
+    left:62%;
 }
 #aboutus_button{
-    top:34em;
-    left:67em;
+    top:71%;
+    left:74%;
 }
 #contacts_button{
-    top:35em;
-    left:60em;
+    top:60%;
+    left:50%;
 }
 #hide{
-
     background-image:url('../images/x.png');
     background-repeat: no-repeat;
     position:absolute;
-    background-position: center;    
-    
+    background-position: center;
 }
 .button {
     -moz-box-shadow: 3px 3px 4px 1px #756a2b;
@@ -280,8 +314,6 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
 }   
 
 #maindiv {
-
-/*z-index: 50;*/
     position:absolute;
     top:0;
     left:0;
@@ -349,6 +381,7 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
      height:inherit;
      background-image: url('../images/page_bg.png');
      background-repeat: repeat-y;
+     overflow: hidden;
  }
 #book .turn-page{
     background-color:white;
@@ -375,15 +408,27 @@ text-shadow:0px 0px 0 rgb(96,11,-93),1px 1px 0 rgb(61,-24,-128), 2px 2px 0 rgb(2
 }
 
 #book .data{
-    text-align:center;
+    text-align:left;
     font-size:20px;
-    color:#999;
+    color:#42371b;
+    font-weight: bold;
     line-height:30px;
+    position: absolute;
+    background-image: url('../images/page_bg.png');
+    background-repeat: repeat-y;
+    height: auto;
+    width: 100%;
+    min-height: 100%;
 }
 
 .page-header
 {
-
+    text-align: center;
+    height: 60px;
+    padding-top: 30px;
+    vertical-align: text-top;
+    font-size: 40px;
+    color: #3a0e0e;
 }
 
 .page

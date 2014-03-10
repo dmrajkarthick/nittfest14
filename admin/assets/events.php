@@ -70,7 +70,7 @@ else if (isset($_POST['updateSubmit']))
                 else $score = implode(';', $score);
             }
         $lang = in_array($_POST['language'], array('English', 'Hindi', 'Tamil')) ? $_POST['language'] : 'English';
-        $desc = addslashes($_POST['description']);
+        $desc = $_POST['description'];
         $c['db']->query_simple("UPDATE pages SET name='$name',title='$title',type='$type',scores='$score',language='$lang',description='$desc' WHERE pageid='$editpage'");
         $T_INFO = 'Event details updated!';
     } catch (Exception $e) {

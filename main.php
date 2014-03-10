@@ -18,28 +18,26 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <!doctype html>
 <html>
 <head>
-    <link href="./files/style.css?3" rel="stylesheet" type="text/css">
-    <!-- use only certain classes -->
-    <link href="./files/hover.css" rel="stylesheet" type="text/css">
+    <link href="./files/style.css?4" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- scripts show be at last -->
-    <script src="./files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./files/jquery.js"></script>
     <script type="text/javascript" src="./files/jquery.history.min.js"></script>
     <script type="text/javascript" src="./script.js?q"></script>
-    <script type="text/javascript" src="./files/fullbg.js"></script>
     <script type="text/javascript" src="./files/turn.js"></script>
     <script type="text/javascript" src="./files/jquery.rotate.min.js"></script>
     <script type="text/javascript" src="./files/script.js"></script>
-    <script type="text/javascript" src="./files/jquery.slides.min.js"></script>    
+    <script type="text/javascript" src="./files/jquery.slides.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
     <title>NITTFEST '14 - Dominate or Submit</title>
 </head>
-<body>
+<body class="stretch">
 <div id="dragonfire">
     <img src=""/>
 </div>
-<img src="images/final1.png" alt="" id="background" />
-
+<img src="images/final1.png" alt="" id="background" class="stretch"/>
+<img src="images/mountain.png" alt="" id="mountain" class="stretch"/>
+<div id="top-container" class="stretch">
 <div id="maindiv" data-open="">
     <div id="rulebook" class="showdiv">
         <div id='book'>
@@ -84,14 +82,14 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     </div>
     <button id="hide" class="button"></button><br />
 </div>
-
-<div id="rulebook_button" class="links grow" data-target="rulebook" data-weapon="hammer"><img src="./images/warrior1.png" /></div>
-<div id="updates_button" class="links grow" data-target="updates" data-weapon="mace"><img src="./images/warrior2.png" /></div>
-<div id="scorecard_button" class="links grow" data-target="scorecard" data-weapon="spear"><img src="./images/warrior3.png" /></div>
-<div id="aboutus_button" class="links grow" data-target="aboutus" data-weapon="hammer"><img src="./images/warrior4.png" /></div>
-<div id="contacts_button" class="links grow"  data-target="contacts" data-weapon="mace"><img src="./images/warrior5.png" /></div>
-<div id="partners_button" class="links grow"  data-target="partners" data-weapon="spear"><img src="./images/warrior6.png" /></div>
-
+<div id="link-bar" class="stretch">
+    <div id="rulebook_button" class="links grow" data-target="rulebook" data-weapon="hammer"><img src="./images/warrior1.png" /></div>
+    <div id="updates_button" class="links grow" data-target="updates" data-weapon="mace"><img src="./images/warrior2.png" /></div>
+    <div id="scorecard_button" class="links grow" data-target="scorecard" data-weapon="spear"><img src="./images/warrior3.png" /></div>
+    <div id="aboutus_button" class="links grow" data-target="aboutus" data-weapon="hammer"><img src="./images/warrior4.png" /></div>
+    <div id="contacts_button" class="links grow"  data-target="contacts" data-weapon="mace"><img src="./images/warrior5.png" /></div>
+    <div id="partners_button" class="links grow"  data-target="partners" data-weapon="spear"><img src="./images/warrior6.png" /></div>
+</div>
 <div id="rulebook_text" class="text" >Rulebook</div>
 <div id="updates_text" class="text" >Updates</div>
 <div id="scorecard_text" class="text" >Scorecard</div>
@@ -109,7 +107,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     <img src="./images/mace.png" />
 </div>
 
-<div class="container">
+<div class="container partners">
     <div id="slides">
     <!-- dynamic -->
         <img src="images/spear.png">
@@ -117,6 +115,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
         <img src="images/mace.png">
         <img src="images/spear.png">
     </div>
+</div>
 </div>
 <script type="text/javascript">
     // Sample using dynamic pages with turn.js
@@ -190,12 +189,6 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
                     window.history.pushState("test", "Title", "?ctype=rulebook&p="+pn);
                 }
             }
-        });
-
-        $('#number-pages').html(numberOfPages);
-        $('#page-number').keydown(function(e){
-            if (e.keyCode==13)
-                $('#book').turn('page', $('#page-number').val());               
         });
     });
 

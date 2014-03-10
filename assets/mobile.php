@@ -1,5 +1,6 @@
 <html> <head> <title><?php echo "NITTFEST'14"; ?></title> <link rel="shortcut
-icon" type="image/x-icon" href="favicon.ico"></link> <style type="text/css">
+icon" type="image/x-icon" href="favicon.ico"></link>     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<style type="text/css">
         body
         {
             width: 100%;
@@ -206,23 +207,42 @@ class="mainli"><a href="index.php?q=e_notification<?php echo (isset($_GET['mobil
 href="index.php?q=e_contacts<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">CONTACTS</a></li> <li class="mainli"><a
 href="index.php?q=e_partners<?php echo (isset($_GET['mobile'])? '&mobile':'') ?>">PARTNERS</a></li> </ul>
 <?php 
-
-        } else {
+} else {
             if($LANGUAGE=="Hindi")
             {
-                echo "<style> @font-face{ font-family: hindi; src:
-                url(files/SHREE-DV0726-OT.TTF); } #content{ font-family: hindi;
-                }</style>
-                $CONTENT";
+            ?>
+                <style>
+                @font-face {
+                    font-family: 'Hindi_Font';
+                    src: url('files/fonts/Devlys_010.eot');
+                    src: local('☺'), url('files/fonts/Devlys_010.woff') format('woff'), url('files/fonts/Devlys_010.ttf') format('truetype'), url('files/fonts/Devlys_010.svg') format('svg');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                #content{
+                    font-family: 'Hindi_Font';
+                }
+                </style>
+            <?php
             }
-            
-            else if($LANGUAGE=="Tamil"){
-            echo " <style> @font-face{ font-family: tamil; src:
-            url(files/ADAANA.TTF); } #content{  font-family: tamil !important;
-            }</style>
-            $CONTENT";
+            else if($LANGUAGE=="Tamil")
+            {
+                ?>
+                <style>
+                @font-face {
+                    font-family: 'Tamil_Font';
+                    src: url('files/fonts/ADAANA.eot');
+                    src: local('☺'), url('files/fonts/ADAANA.woff') format('woff'), url('files/fonts/ADAANA.ttf') format('truetype'), url('files/fonts/ADAANA.svg') format('svg');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                #content{
+                    font-family: 'Tamil_Font';
+                }
+                </style>
+                <?php
             }
-            else
+
             echo $CONTENT;
 } ?>
 </div> <div id="footer"> &copy; NITTFEST '14 Core<br />

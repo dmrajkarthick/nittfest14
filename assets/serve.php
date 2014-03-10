@@ -6,9 +6,6 @@ try{
     require_once($PATH.'config/variables.php');
     require_once($PATH.'assets/mysqlconnector.php');
 
-//$c=connectMySQL($PATH);
-//if(!$c)
-//throw new Exception('Database not connected.');
     $sub=htmlspecialchars($_GET['q']);
     $sub=explode("_",$sub);
     $cat=$sub[0];
@@ -53,13 +50,13 @@ try{
 ';
             if($row['scores'])
                 $content.="<div class='event-points English'>Total Points: {$row['scores']}</div>
-";
+";          $pageid = $row['pageid'];
             $res=$c['db']->query_simple("SELECT name,title FROM pages WHERE parentid='{$row['pageid']}'");
             $row=$res->fetch(PDO::FETCH_ASSOC);
             if($row){
                 $content.= '<h4 id="subeventname" class="English">Events</h4><ul class="eventlist">';
                 do{
-                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&mobile'>".htmlspecialchars_decode($row['title']);
+                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&t={$pageid}&mobile'>".htmlspecialchars_decode($row['title']);
                     if(!defined('MOBILE')) $content.="<img src='images/loading.gif' class='et-load' alt=''>";
                     $content.="</a></li>";
                 }while($row=$res->fetch(PDO::FETCH_ASSOC));
@@ -67,7 +64,8 @@ try{
             }
         }
     } else if($cat=="s"){
-        $res=$c['db']->query_simple("SELECT * FROM pages WHERE name='$q'");
+        $parent = $_GET['t'];
+        $res=$c['db']->query("SELECT * FROM pages WHERE name=:name AND parentid=:parent", array(':name' => $q, ':parent' => $parent));
         $row=$res->fetch(PDO::FETCH_ASSOC);
         if(!$row)	throw new Exception();
         $scores=$row['scores'];
@@ -80,7 +78,6 @@ try{
             $title='Tamil Lits';
         }
         else if($row['language']=='Hindi'){
-            var_dump($res1);
             $cls='Hindi';
             $title='Hindi Lits';
         }
@@ -90,7 +87,7 @@ try{
         }
         $content= "<div id='content' pollingclass='subevent' polling=''>";
         if(defined('MOBILE'))
-            $content.="<div class='breadcrumbs'><a href='./?mobile'>Home</a><span>&nbsp;&gt;&nbsp;</span><a class='eventcat' href='index.php?q=e_{$parentname}'>$parenttitle</a><span>&nbsp;&gt;&nbsp;</span><br /><br /></div>";
+            $content.="<div class='breadcrumbs'><a href='./?mobile' class=\"English\">Home</a><span class=\"English\">&nbsp;&gt;&nbsp;</span><a class='eventcat' href='index.php?q=e_{$parentname}'>$parenttitle</a><span class=\"English\">&nbsp;&gt;&nbsp;</span><br /><br /></div>";
         $content.= "
 <span class='eventname $cls'>".htmlspecialchars_decode($row['title']).'</span>'.(defined('MOBILE')?"<hr />":"").'<div class="subdesc">'.$row['description'].'</div><div class="contentArea">';
         $res=$c['db']->query_simple("SELECT * FROM pages WHERE parentid='{$row['pageid']}'");
@@ -134,6 +131,5 @@ try{
         $LANGUAGE=$cls;
     }
 }catch(Exception $e){
-    if(!defined('MOBILE')) echo "-1";
     if(!defined('MOBILE')) echo "-1";
 }
