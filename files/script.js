@@ -12,8 +12,7 @@ $(function() {
 });
 
 $(document).ready( function(){
-    $('a').hide();
-    $('ul').hide();
+
     nittfest.init();
     $(".showdiv").hide();
     $(".text").hide();

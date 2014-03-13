@@ -14,6 +14,7 @@ if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQU
 if(!isset($_GET['q'])) {
 	exit;
 }
+
 $limit_start = $_GET['q']-3;
 
 if($limit_start < 0) {
@@ -26,7 +27,7 @@ if($limit_start < 0) {
 }
 
 $result = $c['db']->query(
-	'SELECT title, language, description FROM pages WHERE type <> "page" ORDER BY parentid, rank LIMIT 1 OFFSET :ls',
+	'SELECT title, language, description FROM pages WHERE type = "" ORDER BY parentid, rank LIMIT 1 OFFSET :ls',
 	array(':ls' => $limit_start)
 );
 

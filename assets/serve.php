@@ -17,6 +17,7 @@ try{
             if(!$row)	throw new Exception();
             $cls=$row['language'];
             $title=$row['title'];
+            $pageid=$row['pageid'];
             $content= "<div id='content' pollingclass='event' polling=''>";
             if(defined('MOBILE'))
                 $content.="<a class='hometop English' href='./?mobile'>Home</a>";
@@ -30,7 +31,7 @@ try{
                     if($row['type']!=$pr) { if($pr) $content.="</ul>"; $content.="<ul class='eventlist'>
                     <h3>{$row['type']}</h3>"; }
                     $pr=$row['type'];
-                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&mobile'>".htmlspecialchars_decode($row['title']);
+                    $content.= "<li><a class='ajaxSubevent' name='{$row['name']}' href='?q=s_{$row['name']}&t={$pageid}&mobile'>".htmlspecialchars_decode($row['title']);
                     if(!defined('MOBILE')) $content.="<img src='images/loading.gif' class='et-load' alt=''>";
                     $content.="</a></li>";
                 }while($row=$res->fetch(PDO::FETCH_ASSOC));
@@ -64,6 +65,7 @@ try{
             }
         }
     } else if($cat=="s"){
+        if(isset($_GET['t']))
         $parent = $_GET['t'];
         $res=$c['db']->query("SELECT * FROM pages WHERE name=:name AND parentid=:parent", array(':name' => $q, ':parent' => $parent));
         $row=$res->fetch(PDO::FETCH_ASSOC);

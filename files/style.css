@@ -51,12 +51,6 @@ body
     min-height: 618.75px;
     min-width: 1100px;
 }
-.fullBg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
 
 @font-face
 {
@@ -64,37 +58,6 @@ body
     src: url('./font.ttf');
 
 }
-/*
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-
-
-::scrollbar {
-    width: 12px;
-}
-
-::scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
-
-::scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-*/
-
 
 #slides {
   display: none;
@@ -132,57 +95,70 @@ body
     position: absolute;
     z-index:-4;
 }
-.tabs
+.bookmark
 {
-    height:20px;
-    width: 50px;
-    background-color:black;
-    color: white;
-}
-#bookmark1
-{
+    display:none;
     position: absolute;
-    top:100px;
-    left:175px;
+    height:120px;
+    list-style: none;
+    top:20px;
+    margin:0;
 }
-#bookmark2
+.bookmark li {
+    margin:0;
+    padding: 0;
+    height:120px;
+    width: 166px;
+    background-size: 90%;
+    background-repeat: no-repeat;
+}
+#b1
 {
+    background-image: url('../images/bm_english.png');
     position: absolute;
-    top:100px;
-        left:308px;
+    left:19px;
 }
-#bookmark3
+#b2
 {
+    background-image: url('../images/bm_hindi.png');
     position: absolute;
-    top:100px;
-        left:441px;
+    left:181px;
 }
-#bookmark4
+#b3
 {
+    background-image: url('../images/bm_tamil.png');
     position: absolute;
-    top:100px;
-        left:574px;
+    left:343px;
 }
-#bookmark5
+#b4
 {
+    background-image: url('../images/bm_arts.png');
     position: absolute;
-    top:100px;
-        left:707px;
+    left:505px;
 }
-#bookmark6
+#b5
 {
+    background-image: url('../images/bm_designmedia.png');
     position: absolute;
-    top:100px;
-        left:840px;
+    left:667px;
 }
-
+#b6
+{
+    background-image: url('../images/bm_culturals.png');
+    position: absolute;
+    left:829px;
+}
+#b7
+{
+    background-image: url('../images/bm_impromptu.png');
+    position: absolute;
+    left:991px;
+}
 #dragonfire{
-    
     position:absolute;
-    top:1%;
-    left:15%;
+    top:6%;
+    left:9%;
     border: none;
-
 }
 #dragonfire img{
     border: none;
@@ -227,13 +203,16 @@ body
 
 .innerdiv{
     position: absolute;
-    text-align:center;
+    text-align:left;
     font-size:20px;
     color:#42371b;
     font-weight: bold;
     vertical-align: center;
     overflow: auto;
+
 }
+
+
 #top-container {
     position: absolute;
 }
@@ -368,24 +347,20 @@ body
 }
 #book{
     position: absolute;
-    top:0px;
     left:0px;
+    top:80px;
     /*width:800px;
     height:500px;*/
 }
 
-.even .data
- {
-    
+.even .data {
     border-left: 2px solid #000;
-     height:inherit;
-     background-image: url('../images/page_bg.png');
-     background-repeat: repeat-y;
-     overflow: hidden;
- }
+    background-repeat: repeat-y;
+    overflow: hidden;
+}
 #book .turn-page{
     background-color:white;
-    overflow: auto;
+    overflow: hidden;
 }
 
 #book .cover{
@@ -416,11 +391,16 @@ body
     position: absolute;
     background-image: url('../images/page_bg.png');
     background-repeat: repeat-y;
-    height: auto;
+    height: 100%;
     width: 100%;
-    min-height: 100%;
 }
-
+#dragon {
+    position:absolute;
+    width:45%;
+    top:-22%;
+    left:-18%;
+    min-height:420px;
+}
 .page-header
 {
     text-align: center;
@@ -430,7 +410,17 @@ body
     font-size: 40px;
     color: #3a0e0e;
 }
-
+.page-content
+{
+    height:420px;
+    width:530px;
+    padding-left: 30px;
+}
+.page-footer
+{
+    bottom: 0;
+    text-align: center;
+}
 .page
 #controls{
     width:800px;

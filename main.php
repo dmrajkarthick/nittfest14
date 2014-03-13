@@ -14,17 +14,33 @@ if(isset($_GET['ctype'])) {
 if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     $p=$_GET['p'];
 }
+
+$PAGE_POSITION = array(
+    0 => array(1=>1),
+    1 => array(1=>1),
+    2 => array(1=>1),
+    3 => array(1=>1),
+    4 => array(1=>1),
+    5 => array(1=>1),
+    6 => array(1=>1),
+);
+$res = $c['db']->query("SELECT parentid, count(parentid) FROM pages WHERE type = '' GROUP BY parentid");
+if($res) {
+    $PAGE_POSITION = $res->fetchAll();
+}
+
 ?>
 <!doctype html>
 <html>
 <head>
     <link href="./files/style.css?4" rel="stylesheet" type="text/css">
+    <link href="./files/jquery.mCustomScrollbar.css?4" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- scripts show be at last -->
     <script type="text/javascript" src="./files/jquery.js"></script>
-    <script type="text/javascript" src="./files/jquery.history.min.js"></script>
-    <script type="text/javascript" src="./script.js?q"></script>
     <script type="text/javascript" src="./files/turn.js"></script>
+    <script type="text/javascript" src="./files/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="./script.js?q"></script>
     <script type="text/javascript" src="./files/jquery.rotate.min.js"></script>
     <script type="text/javascript" src="./files/script.js"></script>
     <script type="text/javascript" src="./files/jquery.slides.min.js"></script>
@@ -38,9 +54,19 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
 <img src="images/final1.png" alt="" id="background" class="stretch"/>
 <img src="images/mountain.png" alt="" id="mountain" class="stretch"/>
 <div id="top-container" class="stretch">
+<img src="images/dragon.png" alt="" id="dragon" class=""/>
 <div id="maindiv" data-open="">
     <div id="rulebook" class="showdiv">
-        <div id='book'>
+        <ul class="bookmark">
+<?php
+    $sum = 3;
+    for($i=1;$i<8;$i++) {
+        $sum += $PAGE_POSITION[$i-1][1];
+        echo "<li id=\"b$i\" data-page=\"$sum\"></li>";
+    }
+?>
+        </ul>
+        <div id="book">
             <div class="cover hard">
                 <img src="images/rulebook.jpg">
             </div>
@@ -57,8 +83,19 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     </div>
     <div id="updates" class="showdiv">
         <div class="innerdiv">
-            Updates:
-            Coming soon!!
+            <?php
+                $stmt=$c['db']->query("SELECT title, pageid,description from pages where name='prelims' and parentid=1");
+                $res=$stmt->fetch(PDO::FETCH_ASSOC);
+                echo "<div class=\"page-header\">",$res['title'],"</div><br/>";
+                echo $res['description'] . "<br/>";
+                $parentid=$res['pageid'];
+                $stmt=$c['db']->query("SELECT title, name, type from pages where parentid='{$parentid}' order by type");
+                $content="";
+                while($value = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $content .= '<a href="#" class="prelim-link" data-name="' . $value['name'] . '">' . $value['title'] . '</a><br/><div class="prelim-content" id="' . $value['name'] . '-content"></div>';
+                }
+                echo $content;
+            ?>
         </div>
     </div>
     <div id="scorecard" class="showdiv">
@@ -73,8 +110,9 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             $res=$stmt->fetch(PDO::FETCH_ASSOC);
             echo $res['description'];
         ?>
-        </div>
+        
     </div>
+</div>
     <div id="partners" class="showdiv">
         <div class="innerdiv">
             Coming Soon!!
@@ -135,7 +173,7 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
     function p(o){
         $("#book").turn("page", o);
     }
-    var numberOfPages = 1000; 
+    var numberOfPages = 200; 
     function addPage(page, book) {
         var con;
         if (!book.turn("hasPage", page)) {
@@ -174,19 +212,46 @@ if(isset($_GET['p']) && is_numeric($_GET['p'])) {
             gradients: !$.isTouch,
             when: {
                 turning: function(e, page, view) {
+                    if(view[1] == 1 || view[1] == 3) {
+                        $('.bookmark').css('display','none');
+                    }
                     // Gets the range of pages that the book needs right now
                     var range = $(this).turn('range', page);
+                    if(view[1] != 1 && view[0] != 2) {
+                        $('.bookmark').css('display','block');
+                    }
                     // Check if each page is within the book
-                    for (page = range[0]; page<=range[1]; page++) 
+                    for (page = range[0]; page<=range[1]; page++) {
                         addPage(page, $(this));
+                    }
                 },
-                turned: function(e, page) {
+                turned: function(e, page, view) {
                     if($('#maindiv').data('open') != 'rulebook') {
                         return;
                     }
-                    $('#page-number').val(page);
                     pn = page;
                     window.history.pushState("test", "Title", "?ctype=rulebook&p="+pn);
+                    setTimeout(
+                        function() {
+                            if(!$('#page-'+view[0]).find('.page-content').hasClass('mCustomScrollbar')) {
+                                $('#page-'+view[0]).find('.page-content').mCustomScrollbar({
+                                    theme:'dark-thick',
+                                    advanced:{
+                                        updateOnContentResize: true
+                                    }
+                                });
+                            }
+                            if(!$('#page-'+view[1]).find('.page-content').hasClass('mCustomScrollbar')) {
+                                $('#page-'+view[1]).find('.page-content').mCustomScrollbar({
+                                    theme:'dark-thick',
+                                    advanced:{
+                                        updateOnContentResize: true
+                                    }
+                                });
+                            }
+                        },
+                        700
+                    );
                 }
             }
         });

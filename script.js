@@ -36,7 +36,7 @@ nittfest.init = function() {
     nittfest.divTop = windowHeight * 0.025;
     nittfest.divLeft = windowWidth * 0.075;
 
-    $("#book").height(nittfest.divHeight);
+    $("#book").height(nittfest.divHeight-80);
     $("#book").width(nittfest.divWidth);
     $("#book .cover img").width(nittfest.divWidth/2);
     var showdiv = $(".showdiv");
@@ -58,7 +58,54 @@ nittfest.init = function() {
 
     nittfest._windowHeight = windowHeight;
     nittfest._windowWidth = windowWidth;
+
+    $(".prelim-link").click(function() {
+    	var $this = $(this);
+    	var name = $this.data('name');
+    	var pid = $this.data('pid');
+    	var $div = $('#'+name+'-content');
+    	var content;
+    	if($this.data('loaded') != true) {
+	        $.ajax({
+	            url: "a3.php?name="+name,
+	        }).done(function(data) {
+	        	content = JSON.parse(data);
+	        	$('.prelim-content').hide();
+	        	$div.html(content.description);
+	        	$div.show();
+	        	$this.data('loaded', true);
+	        });
+    	} else {
+        	$('.prelim-content').hide();
+        	$div.show();
+    	}
+    });
+
+
+    $(".bookmark li").hover(
+	    function(e) {
+	    	var $this = $(this);
+	    	$this.animate({
+	    		'top': '-20px'
+	    	}, 200)
+	    },
+	    function (e) {
+	    	var $this = $(this);
+	    	$this.animate({
+	    		'top': '0'
+	    	}, 200)
+	    }
+    );
+
+    $(".bookmark li").click(
+	    function(e) {
+	    	var $this = $(this);
+	    	var page = parseInt($this.data('page'))
+	    	p(page);
+	    }
+    );
 }
+
 nittfest.showDiv = function (div) {
 	var $div = $('#'+div);
 
@@ -77,6 +124,9 @@ nittfest.showDiv = function (div) {
         $div.css("left",nittfest.divLeft);
         $div.css("width",nittfest.divWidth);
         $div.css("height",nittfest.divHeight);
+        if(!$div.find('.innerdiv').hasClass('mCustomScrollbar')) {
+        	$div.find('.innerdiv').mCustomScrollbar();
+    	}
     });
 }
 nittfest._easingfunction = function(x, t, b, c, d) {
