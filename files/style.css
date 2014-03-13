@@ -28,6 +28,14 @@ body
 .tamil {
     font-family: 'Tamil_Font';
 }
+#loading-container {
+    background: #000;
+    position:absolute;
+    z-index: 200;
+}
+#loading {
+    color: #fff;
+}
 .grow {
     display: inline-block;
     -webkit-transition-duration: 0.3s;
